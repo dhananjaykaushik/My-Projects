@@ -1,0 +1,187 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Verdana;
+}
+
+#tic-tac-toe-container {
+    height: 100vh;
+    width: 100vw;
+    background-color: #fcfcfc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.layer {
+    display: flex
+}
+
+.box {
+    height: 90px;
+    width: 90px;
+    border: 3px solid #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 35px;
+}
+
+.box.filled {
+    cursor: default;
+}
+
+#box-1, #box-2, #box-3 {
+    border-top: 0;
+}
+
+#box-1, #box-4, #box-7 {
+    border-left: 0;
+}
+
+#box-3, #box-6, #box-9 {
+    border-right: 0;
+}
+
+#box-7, #box-8, #box-9 {
+    border-bottom: 0;
+}
+
+#game-info, #controls {
+    margin: 24px 0;
+}
+
+#turn {
+    display: flex;
+    font-size: 16px;
+    background: #2b78d6;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    min-width: 180px;
+    align-items: center;
+}
+
+#turn > label {
+    font-weight: bold;
+    white-space: pre;
+    flex: 5;
+}
+
+#turn > span {
+    flex: 1;
+    font-size: 20px;
+}
+
+#controls {
+    display: flex;
+}
+
+#controls > button {
+    outline: 0;
+    background: #222;
+    color: white;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    width: 35px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 8px;
+}
+
+#controls > button:hover {
+    transition: all 0.3s ease-in-out;
+    background: #2b78d6;
+}
+
+#modal {
+    border-radius: 4px;
+    position: absolute;
+    height: 500px;
+    width: 320px;
+    background: #1255a6;
+    display: none;
+}
+
+#close-modal {
+    color: white;
+    font-size: 18px;
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    cursor: pointer;
+    background: 0;
+    border: 0;
+    outline: 0;
+}
+
+.modal {
+    display: none;
+    height: 100%;
+    width: 100%;
+    padding: 24px 32px;
+    color: white;
+}
+
+#info-modal {
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+.modal > h3 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 60px;
+    text-align: center;
+    line-height: 44px;
+}
+
+#info-modal > p {
+    font-size: 16px;
+    line-height: 32px;
+}
+
+#info-modal > p#creator {
+    margin-top: 50px;
+    color: #222;
+    font-weight: bold;
+}
+
+#result-modal {
+    flex-direction: column;
+    align-items: center;
+}
+
+#result-modal > #winner {
+    font-size: 220px;
+}
+
+#score-modal {
+    flex-direction: column;
+}
+
+#score-modal > table tr {
+    display: flex;
+    align-items: center;
+}
+
+#score-modal > table td, #score-modal > table th {
+    flex: 1;
+    font-size: 26px;
+    padding: 18px 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#score-modal > table .player-name {
+    font-size: 48px;
+}
