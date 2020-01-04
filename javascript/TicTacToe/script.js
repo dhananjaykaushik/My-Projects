@@ -14,6 +14,7 @@ $(
 
         const initGame = () => {
             currentTurn = Object.keys(players)[0];
+            $('.box').removeClass('filled');
             $('#turn-value').html(`${players[currentTurn]}`);
         };
 
