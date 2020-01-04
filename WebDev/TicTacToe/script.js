@@ -149,7 +149,6 @@ $(
                     if (storage.getItem(key) != null) {
                         playerWins = parseInt(storage.getItem(key));
                     }
-                    console.log('#player-' + (index + 1) + 'name');
                     $('#player-' + (index + 1) + '-name').html(players[key]);
                     $('#player-' + (index + 1) + '-score').html(playerWins);
                 }

@@ -1,4 +1,4 @@
-# Random Projects
+# My Projects
 
 ## Introduction
 
@@ -8,11 +8,12 @@ Fork the repository and enhance it and introduce new features.
 
 **Projects mentioned below**
 
-| Projects                                                | Tags        |
-| ------------------------------------------------------- |:-------------:|
-| **1. Tic Tac Toe ( Multiplayer )**                      | #html #js #css |
+| Projects                                                | Path                                                     | Tags                                                     |
+| ------------------------------------------------------- |:--------------------------------------------------------:|:--------------------------------------------------------:|
+| **1. Tic Tac Toe ( Multiplayer )**                      | WebDev/TicTacToe                                         | #html #js #css                                           |
+| **2. Tic Tac Toe ( Singleplayer )**                     | WebDev/TicTacToeAI                                       | #html #js #css #ai                                       |
 
 
 
 
-> HAVE FUN AND HAPPY CODING
+> Programming isn't about what you know; it's about what you can figure out. - *Chris Pine*

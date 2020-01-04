@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Single Player Tic Tac Toe</title>
+    <link rel="stylesheet" href="../../dependencies/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+    <div id="tic-tac-toe-container">
+
+        <div id="game-info">
+            <div id="turn">
+                <label for="turn">Current Turn:</label>
+                <span id="turn-value"></span>
+            </div>
+        </div>
+
+        <div class="layer" id="layer-1">
+            <div class="box" id="box-1"></div>
+            <div class="box" id="box-2"></div>
+            <div class="box" id="box-3"></div>
+        </div>
+
+        <div class="layer" id="layer-2">
+            <div class="box" id="box-4"></div>
+            <div class="box" id="box-5"></div>
+            <div class="box" id="box-6"></div>
+        </div>
+
+        <div class="layer" id="layer-3">
+            <div class="box" id="box-7"></div>
+            <div class="box" id="box-8"></div>
+            <div class="box" id="box-9"></div>
+        </div>
+
+        <div id="controls">
+            <button id="reset-game" title="Reset Game">
+                <i class="fas fa-redo-alt"></i>
+            </button>
+            <button id="show-scores" title="Show Scores">
+                <i class="fas fa-clipboard"></i>
+            </button>
+            <button id="game-about" title="Game Information">
+                <i class="fas fa-info"></i>
+            </button>
+        </div>
+
+        <div id="modal">
+            <button id="close-modal">
+                <i class="fas fa-times-circle"></i>
+            </button>
+            <div id="info-modal" class="modal">
+                <h3>Game Information</h3>
+                <p>
+                    SinglePlayer user friendly Tic-Tac-Toe game. Play with AI and have fun.
+                    Keep track of your scores and try to defeat AI.
+                    <br>
+                    Have fun.
+                </p>
+                <p id="creator">
+                    DHANANJAY KAUSHIK
+                </p>
+            </div>
+            <div id="result-modal" class="modal">
+                <h3>Winner</h3>
+                <div id="winner">
+                </div>
+            </div>
+            <div id="score-modal" class="modal">
+                <h3>Score</h3>
+                <table>
+                    <tr>
+                        <th>Player</th>
+                        <th>Wins</th>
+                    </tr>
+                    <tr>
+                        <td id="player-1-name" class="player-name"></td>
+                        <td id="player-1-score"></td>
+                    </tr>
+                    <tr>
+                        <td id="player-2-name" class="player-name"></td>
+                        <td id="player-2-score"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="../../dependencies/jquery.js"></script>
+    <script type="text/javascript" src="./script.js"></script>
+</body>
+</html>
