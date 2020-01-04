@@ -164,6 +164,10 @@ $(
             if (isGameEnded()) {
                 openModal('result-modal');
             }
+            if ($('.box.filled').length === 9) {
+                resetGame();
+                return;
+            }
             toggleTurn();
         });
 
