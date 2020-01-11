@@ -206,10 +206,10 @@ $(
             // drawState(...currentState);
 
             // Check if opponent wins
-            const userWins = checkOpponentImmediateWin(currentState);
-            if (userWins) {
-                return 'box-' + (userWins.index);
-            }
+            // const userWins = checkOpponentImmediateWin(currentState);
+            // if (userWins) {
+            //     return 'box-' + (userWins.index);
+            // }
 
             const bestStateResults = processBestState(currentState, ai, true);
 
@@ -277,10 +277,21 @@ $(
         
             const movesResult = [];
             let optimizedMove = null;
-        
+            
+            if (playerTurn === ai) {
+                optimizedMove = -Infinity;
+            } else {
+                optimizedMove = Infinity;
+            }
         
             availableMoves.forEach(
                 move => {
+
+                    // AI is maximizing player
+                    // USER is minimizing player
+                    // AI must pick move with max value
+                    // USER must pick move with min value
+
                     const newState = JSON.parse(JSON.stringify(state));
                     // Applying move
                     newState[move - 1] = playerTurn;
@@ -290,8 +301,12 @@ $(
         
                     const bestMoveResult = processBestState(newState, currentTurn, false);
         
-                    if (!optimizedMove || (bestMoveResult < optimizedMove)) {
-                        optimizedMove = bestMoveResult;
+                    if (playerTurn === ai) {
+                        // MAXIMIZING
+                        optimizedMove = Math.max(optimizedMove, bestMoveResult);
+                    } else {
+                        // MINIMIZING
+                        optimizedMove = Math.min(optimizedMove, bestMoveResult);
                     }
         
                     movesResult.push(
