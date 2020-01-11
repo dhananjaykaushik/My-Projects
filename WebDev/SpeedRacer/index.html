@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Speed Racer</title>
+    <link rel="stylesheet" href="../../dependencies/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../../dependencies/custom-css/myCss.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    
+    <div class="container">
+        <h1>Speed Racer</h1>
+        <p id="sentence-container"></p>
+        <button id="start">Start game</button>
+
+        <div id="modal">
+            <button id="close-modal">
+                <i class="fas fa-times-circle"></i>
+            </button>
+            <h2>RESULTS</h2>
+            <div class="about-game">
+                <div class="row">
+                    <span class="heading">Total Words</span>
+                    <span class="span value" id="total-words"></span>
+                </div>
+                <div class="row">
+                    <span class="heading">Incorrect Words</span>
+                    <span class="span value" id="incorrect-words"></span>
+                </div>
+                <div class="row">
+                    <span class="heading">Accuracy</span>
+                    <span class="span value" id="accuracy"></span>
+                </div>
+                <div class="row">
+                    <span class="heading">Speed(w / s)</span>
+                    <span class="span value" id="speed"></span>
+                </div>
+                <div class="row">
+                    <span class="heading">Total Time(s)</span>
+                    <span class="span value" id="time"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../dependencies/jquery.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
