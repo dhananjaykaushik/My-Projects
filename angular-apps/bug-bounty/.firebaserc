@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "key-acre-273614": {
+      "hosting": {
+        "bug-bounty": [
+          "key-acre-273614"
+        ]
+      }
+    }
+  }
+}

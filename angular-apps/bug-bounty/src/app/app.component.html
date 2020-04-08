@@ -1,0 +1,35 @@
+<div class="users-list">
+
+  Lets Do This !!!!!!
+  <br>
+  <br>
+  <br>
+  <div *ngIf="auth.user$ | async as user; else login">
+    {{user | json}}
+    <hr>
+    <button class="button" (click) = "auth.signOut()">Sign Out</button>
+  </div>
+
+  <div *ngFor="let team of teams.teams$ | async">
+    Name: {{team.teamName}}
+  </div>
+
+  <ng-template #login>
+    <button class="button" (click) = "auth.googleSignIn()">Sign In</button>
+  </ng-template>
+
+
+  <br>
+
+  <button [routerLink] = "['home']">Go To Home</button>
+
+  <router-outlet></router-outlet>
+
+
+  <br>
+  <br>
+
+  <button class="button" (click) = "teams.createTeam()">Create Team</button>
+
+
+</div>
