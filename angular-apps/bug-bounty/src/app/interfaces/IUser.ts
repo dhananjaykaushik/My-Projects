@@ -8,5 +8,5 @@ export interface IUser {
   role: UserRole;
   fullName: string;
   phoneNumber?: string;
-  partOfTeams?: Set<string>;
+  partOfTeams?: string[];
 }

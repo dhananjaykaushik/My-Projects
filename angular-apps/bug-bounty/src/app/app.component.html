@@ -10,8 +10,10 @@
     <button class="button" (click) = "auth.signOut()">Sign Out</button>
   </div>
 
-  <div *ngFor="let team of teams.teams$ | async">
-    Name: {{team.teamName}}
+  <div *ngFor="let team$ of teams.teams">
+    <div class="team" *ngIf = "team$ | async as team">
+      {{team.teamName}}
+    </div>
   </div>
 
   <ng-template #login>
@@ -30,6 +32,6 @@
   <br>
 
   <button class="button" (click) = "teams.createTeam()">Create Team</button>
-
+  <button class="button" (click) = "teams.getTeams()">Get Teams</button>
 
 </div>

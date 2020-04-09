@@ -4,7 +4,7 @@ import { IUser } from '../interfaces/IUser';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 import { User, auth } from 'firebase';
 import { UserRole } from '../enums/UserRole';
 
@@ -14,6 +14,7 @@ import { UserRole } from '../enums/UserRole';
 export class AuthenticationService {
 
   user$: Observable<IUser>;
+  userInfo: IUser;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -36,7 +37,12 @@ export class AuthenticationService {
   async googleSignIn() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
-    this.updateUserFromGoogle(credential.user);
+    this.user$.subscribe(
+      user => {
+        this.userInfo = user;
+        this.updateUserFromGoogle(credential.user);
+      }
+    );
   }
 
   updateUserFromGoogle(user: User) {
@@ -46,7 +52,7 @@ export class AuthenticationService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      role: UserRole.MEMBER,
+      role: (this.userInfo.role !== null || this.userInfo.role !== undefined) ? this.userInfo.role : UserRole.MEMBER,
       fullName: user.displayName,
       phoneNumber: user.phoneNumber
     };
@@ -60,11 +66,11 @@ export class AuthenticationService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      role: UserRole.MEMBER,
+      role: (user.role !== null || user.role !== undefined) ? user.role : UserRole.MEMBER,
       fullName: user.displayName,
       phoneNumber: user.phoneNumber
     };
-    if (user.partOfTeams && user.partOfTeams.size > 0) {
+    if (user.partOfTeams && user.partOfTeams.length > 0) {
       data.partOfTeams = user.partOfTeams;
     }
     this.updateUser(userRef, data, true);
