@@ -1,37 +1,41 @@
-<div class="users-list">
+<div class="full-page-loader" *ngIf="globalService.fullPageLoader.getValue()">
+  <app-fulfilling-square-spinner [animationDuration]="4000" [size]="120" [color]="'#ff1d5e'">
+  </app-fulfilling-square-spinner>
+</div>
 
-  Lets Do This !!!!!!
-  <br>
-  <br>
-  <br>
-  <div *ngIf="auth.user$ | async as user; else login">
-    {{user | json}}
-    <hr>
-    <button class="button" (click) = "auth.signOut()">Sign Out</button>
+<div class="main-content" *ngIf="!globalService.fullPageLoader.getValue()">
+
+  <div *ngIf="auth.userInfo; else login">
+    <router-outlet></router-outlet>
   </div>
 
-  <div *ngFor="let team$ of teams.teams">
-    <div class="team" *ngIf = "team$ | async as team">
-      {{team.teamName}}
-    </div>
-  </div>
 
   <ng-template #login>
-    <button class="button" (click) = "auth.googleSignIn()">Sign In</button>
+
+    <div class="login-page" id="login">
+
+      <div class="login-container">
+
+        <div class="info-site">
+
+          <div class="icon">
+            <span class="material-icons">
+              bug_report
+            </span>
+          </div>
+          <div class="app-name">
+            BugBounty
+          </div>
+          <div class="desc">
+            We don't let silly mistakes pass
+          </div>
+          <a class="button btn waves-effect waves-teal" (click)="auth.googleSignIn()"><i class="fab fa-google"></i>Sign
+            In</a>
+        </div>
+
+      </div>
+
+    </div>
+
   </ng-template>
-
-
-  <br>
-
-  <button [routerLink] = "['home']">Go To Home</button>
-
-  <router-outlet></router-outlet>
-
-
-  <br>
-  <br>
-
-  <button class="button" (click) = "teams.createTeam()">Create Team</button>
-  <button class="button" (click) = "teams.getTeams()">Get Teams</button>
-
 </div>

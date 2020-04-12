@@ -1,0 +1,25 @@
+<div class="user-overview">
+
+  <div class="aggregate-cards">
+    <div class="aggregate-card">
+      <div class="card-title">
+        Total Teams
+      </div>
+      <div class="card-value">
+        {{ authService.userInfo.partOfTeams.length | countFormat }}
+      </div>
+    </div>
+
+    <div class="aggregate-card">
+      <div class="card-title">
+        Total Bugs
+      </div>
+      <div class="card-value">
+        {{ authService.userInfo.bugCounter | countFormat }}
+      </div>
+    </div>
+
+  </div>
+  <div class="detailed-cards"></div>
+
+</div>

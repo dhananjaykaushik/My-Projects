@@ -1,0 +1,40 @@
+mat-sidenav-container
+  height: 100vh
+  mat-sidenav
+    width: 280px
+  mat-sidenav-content
+    .top-nav
+      height: var(--top-nav-height)
+      background: var(--top-nav-background)
+      color: white
+      display: flex
+      padding: 16px
+      align-items: center
+      justify-content: center
+      .controls
+        flex: 1
+        display: flex
+        justify-content: flex-start
+      &
+        button
+          background: 0
+          color: white
+          border: 0
+          i
+            font-size: 28px
+
+
+
+      .user-actions
+        flex: 2
+        display: flex
+        justify-content: flex-end
+    .main-content
+      display: flex
+      height: 100%
+      .user-overview
+        height: 100%
+        width: 100%
+        display: flex
+        justify-content: center
+

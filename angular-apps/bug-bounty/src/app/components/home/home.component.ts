@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public auth: AuthenticationService,
+    private teamsService: TeamsService
+  ) { }
 
   ngOnInit() {
+    this.teamsService.getTeams();
   }
 
 }

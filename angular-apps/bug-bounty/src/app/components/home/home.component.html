@@ -1,1 +1,32 @@
-<p>home works!</p>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sideNav>
+    <app-side-nav [sideNav] = "sideNav"></app-side-nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+    <div class="top-nav">
+      <div class="controls">
+        <button (click)="sideNav.toggle()" matTooltip="Toggle Side Menu">
+          <i class="material-icons">
+            menu
+          </i>
+        </button>
+      </div>
+      <div class="auth-actions">
+        <button (click)="auth.signOut()" matTooltip="Sign Out">
+          <i class="material-icons">
+            power_settings_new
+          </i>
+        </button>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <router-outlet #myOutlet = "outlet" name="teamdashboard"></router-outlet>
+      <div class="user-overview" *ngIf="!myOutlet.isActivated">
+        <app-user-overview></app-user-overview>
+      </div>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,93 @@
+#side-nav-container
+  background: var(--side-nav-background)
+  display: flex
+  height: 100%
+  width: 100%
+  flex-direction: column
+  color: white
+  .heading
+    padding: 16px
+    display: flex
+    align-items: center
+    height: var(--top-nav-height)
+    color: var(--side-nav-color)
+    border-bottom: 1px solid var(--side-nav-separation-background)
+    .toggle-menu
+      display: flex
+      button
+        background: 0
+        display: flex
+        i
+          font-size: 28px
+          font-weight: 600
+    .app-about
+      display: flex
+      justify-content: center
+      align-items: center
+      flex: 1
+      .icon
+        display: flex
+        margin-right: 4px
+        span
+          font-size: 28px
+      .app-name
+        font-size: 17px
+        font-weight: 600
+  .sections
+    display: flex
+    flex-direction: column
+    .section
+      padding: 16px 0
+      .section-heading
+        color: var(--side-nav-color)
+        span
+          font-size: 15px
+          font-weight: 600
+          text-transform: uppercase
+          padding: 14px 24px
+
+      ul
+        margin-top: 4px
+        li
+          display: flex
+          align-items: center
+          a
+            display: flex
+            cursor: pointer
+            display: flex
+            align-items: center
+            padding: 6px 24px
+            width: 100%
+            .team-icon
+              flex: 1
+              display: flex
+              span
+                font-size: 28px
+                color: var(--side-nav-color)
+            .team-name
+              flex: 4.5
+              font-size: 15px
+              color: var(--side-nav-color)
+              font-weight: 400
+              text-overflow: ellipsis
+              overflow: hidden
+              white-space: pre
+              padding-right: 24px
+            &:hover
+              background: var(--side-nav-hover-background)
+              .team-icon
+                span
+                  color: var(--side-nav-hover-color)
+              .team-name
+                color: var(--side-nav-hover-color)
+
+            &.active
+              background: var(--side-nav-hover-background)
+              .team-icon
+                span
+                  color: var(--side-nav-hover-color)
+              .team-name
+                color: var(--side-nav-hover-color)
+                font-weight: 500
+
+

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BugBountiesComponent } from './bug-bounties.component';
+import { TeamDashboardComponent } from './team-dashboard.component';
 
-describe('BugBountiesComponent', () => {
-  let component: BugBountiesComponent;
-  let fixture: ComponentFixture<BugBountiesComponent>;
+describe('TeamDashboardComponent', () => {
+  let component: TeamDashboardComponent;
+  let fixture: ComponentFixture<TeamDashboardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BugBountiesComponent ]
+      declarations: [ TeamDashboardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BugBountiesComponent);
+    fixture = TestBed.createComponent(TeamDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

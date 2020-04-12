@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+
+html
+  font-size: 16px
+
+body
+  font-family: -apple-system, 'Helvetica Neue', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif
+  min-width: 320px
+  min-height: 640px
+
+@media screen and (min-width: 320px)
+  html
+    font-size: calc(16px + 6 * ((100vw - 320px) / 680))
+
+
+@media screen and (min-width: 1000px)
+  html
+    font-size: 22px
+
+
+// Global Defaults
+button
+  cursor: pointer !important
+  background: 0
+  border: 0
+
+.mat-tooltip
+  font-size: 12px !important
+
+:root
+  --background-color: #03a9f4
+  --logo-color: #073347
+  --app-name-color: #222222
+  --top-nav-background: #222222
+  --top-nav-height: 50px
+  --login-button-background: #333333
+  --side-nav-background: #ffffff
+  --side-nav-color: #333333
+  --side-nav-separation-background: #dbdbdb
+  --side-nav-hover-background: #e5e5e5
+  --side-nav-hover-color: #222222
+

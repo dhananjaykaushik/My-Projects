@@ -1,0 +1,54 @@
+<div id="side-nav-container">
+  <div class="heading">
+    <div class="toggle-menu">
+      <button matTooltip="Toggle Side Menu" (click)="sideNav.close()">
+        <i class="material-icons">
+          menu
+        </i>
+      </button>
+    </div>
+    <div class="app-about">
+      <div class="icon">
+        <span class="material-icons">
+          bug_report
+        </span>
+      </div>
+      <div class="app-name">
+        BugBounty
+      </div>
+    </div>
+  </div>
+  <div class="sections">
+
+    <div class="section">
+      <div class="section-heading">
+        <span>Teams</span>
+      </div>
+      <div class="section-listing">
+        <ul>
+          <li *ngFor="let teamObs of teamsService.teams">
+            <a *ngIf="teamObs | async as team" [routerLink]="[ { outlets: { teamdashboard: ['teams', team.tid] } } ]">
+              <div class="team-icon">
+                <span class="material-icons">
+                  view_quilt
+                </span>
+              </div>
+              <div class="team-name">
+                {{team.teamName}}
+              </div>
+            </a>
+          </li>
+        </ul>
+
+        <ng-template #noTeam>
+          <div class="section-empty">
+            Not currently in any team. Contact your team leader
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>

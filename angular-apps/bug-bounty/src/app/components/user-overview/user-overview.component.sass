@@ -1,0 +1,51 @@
+\:host
+  width: 100%
+  display: flex
+  justify-content: center
+  .user-overview
+    display: flex
+    flex-direction: column
+    padding: 24px
+    max-width: 1800px
+    width: 100%
+    .aggregate-cards
+      display: grid
+      grid-template-columns: 1fr
+      grid-gap: 20px
+
+      .aggregate-card
+        height: 120px
+        background: #333333
+        color: white
+        position: relative
+        border-radius: 4px
+
+        .card-title
+          text-transform: uppercase
+          font-weight: 600
+          font-size: 12.5px
+          padding: 10px 8px
+        .card-value
+          position: absolute
+          top: 0
+          left: 0
+          bottom: 0
+          right: 0
+          font-size: 44px
+          font-weight: 500
+          display: flex
+          justify-content: center
+          align-items: center
+          padding-top: 10px
+
+    .detailed-cards
+      display: flex
+      flex-direction: column
+
+
+
+  @media screen and (min-width: 500px)
+    .user-overview
+      .aggregate-cards
+        grid-template-columns: repeat(auto-fit,minmax(10px,1fr))
+
