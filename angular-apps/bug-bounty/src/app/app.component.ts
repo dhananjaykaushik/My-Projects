@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { AuthenticationService } from './services/authentication.service';
 import { GlobalDataService } from './services/global-data.service';
-import { take } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',

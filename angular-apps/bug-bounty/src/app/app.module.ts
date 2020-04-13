@@ -2,20 +2,20 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FulfillingSquareSpinnerModule } from 'angular-epic-spinners';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { ModalComponent } from './components/modal/modal.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { TeamDashboardComponent } from './components/team-dashboard/team-dashboard.component';
-import { AngularModule } from './modules/angular/angular.module';
 import { UserOverviewComponent } from './components/user-overview/user-overview.component';
+import { AngularModule } from './modules/angular/angular.module';
 import { CountFormatPipe } from './pipes/count-format.pipe';
-import { ModalComponent } from './components/modal/modal.component';
 import { CreateTeamFormComponent } from './templates/create-team-form/create-team-form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
