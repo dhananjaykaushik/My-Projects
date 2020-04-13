@@ -7,8 +7,8 @@
       </div>
       <div class="card-value" *ngIf="authService.user$ | async as user; else noTeams;">
         {{ (user.partOfTeams ? user.partOfTeams.length : 0) | countFormat }}
-        <ng-template #noTeams>0</ng-template>
       </div>
+      <ng-template #noTeams>0</ng-template>
     </div>
 
     <div class="aggregate-card" [style.backgroundColor]="commonFunctions.materialColors[6]">
@@ -17,8 +17,8 @@
       </div>
       <div class="card-value" *ngIf="authService.user$ | async as user; else noBugs;">
         {{ user.bugCounter | countFormat }}
-        <ng-template #noBugs>0</ng-template>
       </div>
+      <ng-template #noBugs>0</ng-template>
     </div>
 
     <div class="aggregate-card" [style.backgroundColor]="commonFunctions.materialColors[8]"
