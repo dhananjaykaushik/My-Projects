@@ -30,10 +30,14 @@ export class AppComponent implements OnInit {
     this.globalService.fullPageLoader.subscribe(
       {
         next: (isLoading) => {
-          if (!isLoading && this.auth.userInfo) {
-            this.router.navigate(['home']);
-          } else {
-            this.router.navigate(['']);
+          if (!isLoading) {
+            if (this.auth.userInfo && (location.pathname === '/')) {
+              this.router.navigate(['home']);
+            } else if (!this.auth.userInfo) {
+              this.router.navigate(['']);
+            } else {
+              this.router.navigateByUrl(location.pathname);
+            }
           }
         }
       }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { TeamsService } from 'src/app/services/teams.service';
+import { IUser } from 'src/app/interfaces/IUser';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,13 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.teamsService.getTeams();
+    this.auth.user$.subscribe(
+      {
+        next: (user: IUser) => {
+          this.teamsService.getTeams(user);
+        }
+      }
+    );
   }
 
 }

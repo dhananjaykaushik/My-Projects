@@ -7,8 +7,6 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { UserRole } from '../enums/UserRole';
 import { IUser } from '../interfaces/IUser';
-import { GlobalDataService } from './global-data.service';
-import { ITeam } from '../interfaces/ITeam';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +19,7 @@ export class AuthenticationService {
   constructor(
     private afAuth: AngularFireAuth,
     private afStore: AngularFirestore,
-    private router: Router,
-    private globalService: GlobalDataService
+    private router: Router
   ) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(
@@ -40,30 +37,43 @@ export class AuthenticationService {
   async googleSignIn() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
-    this.user$.subscribe(
-      user => {
-        if (user) {
-          this.userInfo = user;
-          this.updateUserFromGoogle(credential.user);
-        }
-      }
-    );
+    this.updateUserFromGoogle(credential.user);
   }
 
   updateUserFromGoogle(user: User) {
     const userRef: AngularFirestoreDocument<IUser> = this.afStore.doc(`users/${user.uid}`);
-    const data: IUser = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      role: (this.userInfo.role !== null && this.userInfo.role !== undefined) ? this.userInfo.role : UserRole.MEMBER,
-      fullName: user.displayName,
-      phoneNumber: user.phoneNumber,
-      bugCounter: (this.userInfo.bugCounter !== null && this.userInfo.bugCounter !== undefined) ? this.userInfo.bugCounter : 0,
-      logTracker: (this.userInfo.logTracker !== null && this.userInfo.logTracker !== undefined) ? this.userInfo.logTracker : []
-    };
-    this.updateUser(userRef, data);
+    userRef.get().pipe(
+      switchMap(
+        u => {
+          if (u) {
+            return of(u.data());
+          } else {
+            return of(null);
+          }
+        }
+      )
+    ).subscribe(
+      (userData: IUser) => {
+        const data: IUser = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          role: UserRole.MEMBER,
+          fullName: user.displayName,
+          phoneNumber: user.phoneNumber,
+          bugCounter: 0,
+          logTracker: []
+        };
+        if (userData) {
+          data.role = userData.role;
+          data.fullName = userData.fullName;
+          data.bugCounter = userData.bugCounter;
+          data.logTracker = userData.logTracker;
+        }
+        this.updateUser(userRef, data);
+      }
+    );
   }
 
   updateUserValues(user: IUser) {
@@ -100,16 +110,5 @@ export class AuthenticationService {
     this.router.navigate(['/']);
   }
 
-  isRoot() {
-    return this.userInfo.role === UserRole.ROOT;
-  }
-
-  isTeamLead(team: ITeam) {
-    return team.teamLeads.includes(this.userInfo.uid);
-  }
-
-  isTeamMember(team: ITeam) {
-    return team.teamMembers.includes(this.userInfo.uid);
-  }
 
 }

@@ -13,7 +13,9 @@ import { TeamDashboardComponent } from './components/team-dashboard/team-dashboa
 import { AngularModule } from './modules/angular/angular.module';
 import { UserOverviewComponent } from './components/user-overview/user-overview.component';
 import { CountFormatPipe } from './pipes/count-format.pipe';
-
+import { ModalComponent } from './components/modal/modal.component';
+import { CreateTeamFormComponent } from './templates/create-team-form/create-team-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -36,6 +38,8 @@ const config = {
     TeamDashboardComponent,
     UserOverviewComponent,
     CountFormatPipe,
+    ModalComponent,
+    CreateTeamFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,10 +48,13 @@ const config = {
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularModule,
     FulfillingSquareSpinnerModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CreateTeamFormComponent]
 })
 export class AppModule { }

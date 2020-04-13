@@ -8,44 +8,67 @@
     padding: 24px
     max-width: 1800px
     width: 100%
-    .aggregate-cards
-      display: grid
-      grid-template-columns: 1fr
-      grid-gap: 20px
-
-      .aggregate-card
-        height: 120px
-        background: #333333
-        color: white
-        position: relative
-        border-radius: 4px
-
-        .card-title
-          text-transform: uppercase
-          font-weight: 600
-          font-size: 12.5px
-          padding: 10px 8px
-        .card-value
-          position: absolute
-          top: 0
-          left: 0
-          bottom: 0
-          right: 0
-          font-size: 44px
-          font-weight: 500
-          display: flex
-          justify-content: center
-          align-items: center
-          padding-top: 10px
-
     .detailed-cards
-      display: flex
-      flex-direction: column
+      .detailed-card
+        margin: 24px 0
+        .card-value
+          .bug-log
+            display: flex
+            flex-direction: column
+            .bug-general
+              display: flex
+              align-items: center
+              .bug-icon
+                display: flex
+                width: 40px
+                span
+                  font-size: 32px
+              .bug-date
+                font-size: 14px
+                font-weight: 500
+            .bug-desc
+              font-size: 14px
+              font-weight: 500
+              padding: 8px 12px 8px 38px
+          .admin-actions
+            display: flex
+            justify-content: center
+            flex-wrap: wrap
+            height: 100%
+            width: 100%
+            align-items: center
+            .admin-action
+              display: flex
+              justify-content: center
+              align-items: center
+              flex-direction: column
+              cursor: pointer
+              background: #222
+              padding: 12px 0
+              border-radius: 4px
+              .action-icon
+                height: 80px
+                width: 80px
+                border-radius: 100%
+                margin: 0 24px
+                span
+                  display: flex
+                  color: white
+                  justify-content: center
+                  align-items: center
+                  height: 100%
+                  width: 100%
+                  font-size: 72px
+              .action-name
+                font-size: 16px
+                font-weight: 500
+                margin-top: 6px
+                color: white
+                text-align: center
+
+              &:hover
+                background: #1a1a1a
+                transition: all 0.5s ease-in-out
 
 
-
-  @media screen and (min-width: 500px)
-    .user-overview
-      .aggregate-cards
-        grid-template-columns: repeat(auto-fit,minmax(10px,1fr))
 

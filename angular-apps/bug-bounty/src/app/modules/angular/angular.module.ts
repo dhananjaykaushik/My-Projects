@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { MatMenuModule } from '@angular/material/menu';
-
-
-
 
 
 @NgModule({
@@ -20,7 +20,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSidenavModule,
     MatTooltipModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ]
 })
 export class AngularModule { }

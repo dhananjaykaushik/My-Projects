@@ -1,0 +1,45 @@
+<form (submit)="$event.preventDefault();createTeam($event)">
+  <div class="form-heading">CREATE A TEAM</div>
+  <mat-form-field appearance="outline">
+    <mat-label>Team Id</mat-label>
+    <input disabled readonly autocomplete="off" matInput placeholder="Enter Team Name" [value]="teamId">
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline">
+    <mat-label>Team Name</mat-label>
+    <input autocomplete="off" matInput placeholder="Enter Team Name" [formControl]="teamName" required>
+    <mat-error *ngIf="teamName.invalid">Enter Team Name</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline">
+    <mat-label>Team Leads</mat-label>
+    <mat-select multiple [required]="true" [formControl]="teamLeader">
+      <ng-container *ngIf="userService.users | async as users">
+        <mat-option *ngFor="let user of users" [value]="user.uid" [matTooltip] = "user.email" [matTooltipPosition]="'before'">
+          <span class="material-icons rootUser" *ngIf="user.role === userRole.ROOT">
+            cake
+          </span>
+          {{user.displayName}}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+    <mat-error *ngIf="teamLeader.invalid">Select Team Leader</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Team Members</mat-label>
+    <mat-select multiple [required]="true" [formControl]="teamMembers">
+      <ng-container *ngIf="userService.users | async as users">
+        <mat-option [class.rootUser]="user.role === userRole.ROOT" *ngFor="let user of users" [value]="user.uid" [matTooltip] = "user.email" [matTooltipPosition]="'before'">
+          <span class="material-icons rootUser" *ngIf="user.role === userRole.ROOT">
+            cake
+          </span>
+          {{user.displayName}}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+    <mat-error *ngIf="teamMembers.invalid">Select Team Leader</mat-error>
+  </mat-form-field>
+  <button type="submit">Create Team</button>
+</form>

@@ -1,25 +1,91 @@
 <div class="user-overview">
 
   <div class="aggregate-cards">
-    <div class="aggregate-card">
+    <div class="aggregate-card" [style.backgroundColor]="commonFunctions.materialColors[4]">
       <div class="card-title">
         Total Teams
       </div>
-      <div class="card-value">
-        {{ authService.userInfo.partOfTeams.length | countFormat }}
+      <div class="card-value" *ngIf="authService.user$ | async as user; else noTeams;">
+        {{ (user.partOfTeams ? user.partOfTeams.length : 0) | countFormat }}
+        <ng-template #noTeams>0</ng-template>
       </div>
     </div>
 
-    <div class="aggregate-card">
+    <div class="aggregate-card" [style.backgroundColor]="commonFunctions.materialColors[6]">
       <div class="card-title">
         Total Bugs
       </div>
+      <div class="card-value" *ngIf="authService.user$ | async as user; else noBugs;">
+        {{ user.bugCounter | countFormat }}
+        <ng-template #noBugs>0</ng-template>
+      </div>
+    </div>
+
+    <div class="aggregate-card" [style.backgroundColor]="commonFunctions.materialColors[8]"
+      *ngIf="userService.isRoot()">
+      <div class="card-title">
+        Total Users
+      </div>
       <div class="card-value">
-        {{ authService.userInfo.bugCounter | countFormat }}
+        {{ (userService.users | async).length | countFormat  }}
       </div>
     </div>
 
   </div>
-  <div class="detailed-cards"></div>
+  <div class="detailed-cards">
+    <div class="detailed-card">
+      <div class="card-title">
+        Bug Tracker
+      </div>
+      <div class="card-value">
+        <ng-container *ngIf="authService.user$ | async as user; else noLogs;">
+          <ng-container *ngIf="user.logTracker && user.logTracker.length; else noLogs;">
+            <div class="bug-log" *ngFor="let bug of user.logTracker">
+              <div class="bug-general">
+                <div class="bug-icon">
+                  <span class="material-icons" [style.color]="bugSeverityColorGetter(bug.bugSeverity)"
+                    [matTooltip]="bugSeverityNameGetter(bug.bugSeverity)">
+                    bug_report
+                  </span>
+                </div>
+                <div class="bug-date">
+                  {{commonFunctions.dateFormatter(bug.logDate)}}
+                </div>
+              </div>
+              <div class="bug-desc">
+                {{(bug.description && bug.description.length) ? bug.description : 'Your leader was too lazy to put in description. But you should know you deserve it!'}}
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-template #noLogs>
+          <div class="no-data">
+            No mistakes made yet. You're under surveillance;
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="detailed-card" *ngIf="userService.isRoot()">
+      <div class="card-title">Admin Actions</div>
+      <div class="card-value">
+        <div class="admin-actions">
+          <ng-container *ngFor="let action of actions.ADMIN_ACTIONS">
+            <div class="admin-action" *ngIf="action.availableForRoles.includes(authService.userInfo.role)"
+              (click)="actionPerformed(action)">
+              <div class="action-icon">
+                <span class="material-icons">
+                  {{action.actionMaterialIcon}}
+                </span>
+              </div>
+              <div class="action-name">
+                {{action.actionName}}
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

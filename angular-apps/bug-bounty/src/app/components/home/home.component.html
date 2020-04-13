@@ -1,32 +1,52 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sideNav>
-    <app-side-nav [sideNav] = "sideNav"></app-side-nav>
+    <app-side-nav [sideNav]="sideNav"></app-side-nav>
   </mat-sidenav>
   <mat-sidenav-content>
 
-    <div class="top-nav">
-      <div class="controls">
-        <button (click)="sideNav.toggle()" matTooltip="Toggle Side Menu">
-          <i class="material-icons">
-            menu
-          </i>
-        </button>
-      </div>
-      <div class="auth-actions">
-        <button (click)="auth.signOut()" matTooltip="Sign Out">
-          <i class="material-icons">
-            power_settings_new
-          </i>
-        </button>
-      </div>
-    </div>
+    <mat-sidenav-container>
 
-    <div class="main-content">
-      <router-outlet #myOutlet = "outlet" name="teamdashboard"></router-outlet>
-      <div class="user-overview" *ngIf="!myOutlet.isActivated">
-        <app-user-overview></app-user-overview>
-      </div>
-    </div>
+      <mat-sidenav #modalMenu [position]="'end'">
+        <app-modal [modalMenu] = "modalMenu"></app-modal>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <div class="top-nav">
+          <div class="controls">
+            <button (click)="sideNav.toggle()" matTooltip="Toggle Side Menu">
+              <i class="material-icons">
+                menu
+              </i>
+            </button>
+            <div class="app-about" style="max-width: fit-content; margin-left: 46px;" [routerLink]="['/home']">
+              <div class="icon">
+                <span class="material-icons">
+                  bug_report
+                </span>
+              </div>
+              <div class="app-name">
+                BugBounty
+              </div>
+            </div>
+          </div>
+          <div class="auth-actions">
+            <button (click)="auth.signOut()" matTooltip="Sign Out">
+              <i class="material-icons">
+                power_settings_new
+              </i>
+            </button>
+          </div>
+        </div>
+
+        <div class="main-content">
+          <router-outlet #myOutlet="outlet" name="teamdashboard"></router-outlet>
+          <div class="user-overview" *ngIf="!myOutlet.isActivated">
+            <app-user-overview></app-user-overview>
+          </div>
+        </div>
+      </mat-sidenav-content>
+
+    </mat-sidenav-container>
 
   </mat-sidenav-content>
 </mat-sidenav-container>

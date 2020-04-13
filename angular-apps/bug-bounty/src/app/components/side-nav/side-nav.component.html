@@ -7,7 +7,7 @@
         </i>
       </button>
     </div>
-    <div class="app-about">
+    <div class="app-about" style="margin-left: 46px;" [routerLink] = "['/home']">
       <div class="icon">
         <span class="material-icons">
           bug_report
@@ -25,7 +25,7 @@
         <span>Teams</span>
       </div>
       <div class="section-listing">
-        <ul>
+        <ul *ngIf = "teamsService.teams && teamsService.teams.length;else noTeam;">
           <li *ngFor="let teamObs of teamsService.teams">
             <a *ngIf="teamObs | async as team" [routerLink]="[ { outlets: { teamdashboard: ['teams', team.tid] } } ]">
               <div class="team-icon">

@@ -2,6 +2,7 @@
   margin: 0
   padding: 0
   box-sizing: border-box
+  outline: 0
 
 
 html
@@ -28,6 +29,7 @@ button
   background: 0
   border: 0
 
+
 .mat-tooltip
   font-size: 12px !important
 
@@ -44,3 +46,121 @@ button
   --side-nav-hover-background: #e5e5e5
   --side-nav-hover-color: #222222
 
+
+
+.aggregate-cards
+  display: grid
+  grid-template-columns: 1fr
+  grid-gap: 20px
+
+  .aggregate-card
+    height: 120px
+    background: #333333
+    color: white
+    position: relative
+    border-radius: 4px
+
+    .card-title
+      text-transform: uppercase
+      font-weight: 600
+      font-size: 14px
+      padding: 10px 8px
+    .card-value
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0
+      font-size: 44px
+      font-weight: 500
+      display: flex
+      justify-content: center
+      align-items: center
+      padding-top: 10px
+
+.detailed-cards
+  display: flex
+  flex-direction: column
+  width: 100%
+  .detailed-card
+    width: 100%
+    height: 300px
+    background: #333
+    overflow: hidden
+    border-radius: 4px
+    color: white
+    .card-title
+      text-transform: uppercase
+      font-weight: 600
+      font-size: 14px
+      padding: 20px 16px
+      background: #2c2c2c
+      margin-bottom: 8px
+    .card-value
+      padding: 0px 16px
+      overflow: auto
+      height: 75%
+      .no-data
+        display: flex
+        width: 100%
+        height: 100%
+        font-size: 16px
+        font-weight: 500
+        justify-content: center
+        align-items: center
+        text-align: center
+
+.app-about
+  display: flex
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  .icon
+    display: flex
+    margin-right: 4px
+    span
+      font-size: 28px
+  .app-name
+    font-size: 17px
+    font-weight: 600
+
+form
+  display: flex
+  flex-direction: column
+  .form-heading
+    font-size: 16px
+    text-transform: uppercase
+    font-weight: 600
+    margin-bottom: 32px
+    text-align: center
+
+  .mat-form-field
+    width: 100%
+    font-weight: 500
+    font-size: 13.5px
+    margin: 3px 0
+
+  button[type=submit]
+    background: #333
+    color: white
+    padding: 16px 8px
+    font-weight: 500
+    border-radius: 4px
+    font-size: 14px
+    margin-top: 24px
+    &:hover
+      transition: all 0.5s ease-in-out
+      background: #222
+
+.mat-form-field-infix
+  input
+    height: unset !important
+    padding: 0 !important
+    margin: 0 !important
+    border-bottom: 0 !important
+    box-shadow: unset !important
+
+@media screen and (min-width: 500px)
+  .user-overview
+    .aggregate-cards
+      grid-template-columns: repeat(auto-fit,minmax(10px,1fr))

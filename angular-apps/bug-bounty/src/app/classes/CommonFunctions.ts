@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export class CommonFunctions {
 
   static materialColors = ['#f44336', '#e91e36', '#9c27b0', '#673ab7', '#2196f3', '#03a9f4', '#00bcd4',
@@ -20,5 +22,9 @@ export class CommonFunctions {
   static getRandomFromList(list: string[]) {
     const index = CommonFunctions.getRandomNumber(list.length - 1);
     return list[index];
+  }
+
+  static dateFormatter(date) {
+    return moment(date.seconds ? (date.seconds * 1000) : date).format('LLL');
   }
 }

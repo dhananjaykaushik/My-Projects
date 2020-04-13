@@ -27,11 +27,12 @@ export class TeamsService {
     );
   }
 
-  getTeams(user?) {
+  getTeams(user?: IUser) {
     if (user && user.partOfTeams && user.partOfTeams.length > 0) {
       this.teams = [];
       user.partOfTeams.forEach(
         tid => {
+          console.log(tid);
           this.teams.push(this.afStore.doc<ITeam>(`teams/${tid}`).valueChanges());
         }
       );
@@ -45,29 +46,10 @@ export class TeamsService {
     }
   }
 
-  createTeam() {
-
-    const teamId = CommonFunctions.generateUniqueKey(28);
-    const teamRef: AngularFirestoreDocument<ITeam> = this.afStore.doc(`teams/${teamId}`);
-
-    const data: ITeam = {
-      tid: teamId,
-      teamName: 'My Test Team ' + CommonFunctions.getRandomNumber(100),
-      teamLeads: [this.userId],
-      teamMembers: [this.userId]
-    };
-
-    teamRef.set(data, { merge: true });
-
-    const userData: IUser = this.authService.userInfo;
-    if (userData.partOfTeams) {
-      userData.partOfTeams.push(teamId);
-    } else {
-      userData.partOfTeams = [teamId];
-    }
-
-    this.authService.updateUserValues(userData);
-
+  createTeam(teamData: ITeam) {
+    console.log('Create Team:', teamData);
+    const teamRef: AngularFirestoreDocument<ITeam> = this.afStore.doc(`teams/${teamData.tid}`);
+    teamRef.set(teamData, { merge: true });
   }
 
   deleteTeam() { }

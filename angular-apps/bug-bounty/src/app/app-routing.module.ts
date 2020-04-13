@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'home', component: HomeComponent, canActivate: [AuthGuard], children: [
       {
         path: 'teams/:teamId', component: TeamDashboardComponent,
-        canActivate: [AuthGuard, PartOfTeamGuard], outlet: 'teamdashboard'
+        canActivate: [AuthGuard], outlet: 'teamdashboard'
       }
     ]
   }
