@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { auth, User } from 'firebase';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { UserRole } from '../enums/UserRole';
 import { IUser } from '../interfaces/IUser';
@@ -14,7 +14,8 @@ import { IUser } from '../interfaces/IUser';
 export class AuthenticationService {
 
   user$: Observable<IUser>;
-  userInfo: IUser;
+  userInfo: BehaviorSubject<IUser> = new BehaviorSubject(null);
+  loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -61,15 +62,11 @@ export class AuthenticationService {
           photoURL: user.photoURL,
           role: UserRole.MEMBER,
           fullName: user.displayName,
-          phoneNumber: user.phoneNumber,
-          bugCounter: 0,
-          logTracker: []
+          phoneNumber: user.phoneNumber
         };
         if (userData) {
           data.role = userData.role;
           data.fullName = userData.fullName;
-          data.bugCounter = userData.bugCounter;
-          data.logTracker = userData.logTracker;
         }
         this.updateUser(userRef, data);
       }
@@ -85,9 +82,7 @@ export class AuthenticationService {
       photoURL: user.photoURL,
       role: (user.role !== null && user.role !== undefined) ? user.role : UserRole.MEMBER,
       fullName: user.displayName,
-      phoneNumber: user.phoneNumber,
-      bugCounter: (user.bugCounter !== null && user.bugCounter !== undefined) ? user.bugCounter : 0,
-      logTracker: (user.logTracker !== null && user.logTracker !== undefined) ? user.logTracker : []
+      phoneNumber: user.phoneNumber
     };
     if (user.partOfTeams && user.partOfTeams.length > 0) {
       data.partOfTeams = user.partOfTeams;
@@ -109,6 +104,5 @@ export class AuthenticationService {
     await this.afAuth.auth.signOut();
     this.router.navigate(['/']);
   }
-
 
 }

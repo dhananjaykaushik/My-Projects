@@ -6,8 +6,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     MatMenuModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ]
 })
 export class AngularModule { }

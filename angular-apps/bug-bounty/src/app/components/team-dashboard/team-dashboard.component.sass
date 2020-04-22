@@ -1,0 +1,29 @@
+.team-dashboard
+  display: grid
+  padding: 24px
+  grid-template-columns: repeat(auto-fit, minmax(10px, 1fr))
+  .user-card
+    max-width: 300px
+    height: 150px
+    background: #333333
+    color: white
+    mat-card-header
+      display: flex
+
+      .image
+        height: 30px
+        width: 30px
+        border-radius: 100%
+        display: flex
+        .no-image
+          display: flex
+          background: white
+          color: #222222
+          font-weight: 600
+          font-size: 14px
+          justify-content: center
+          align-items: center
+      .name
+        font-weight: 600
+        font-size: 14px
+        color: white

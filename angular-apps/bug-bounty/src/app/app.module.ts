@@ -16,6 +16,8 @@ import { UserOverviewComponent } from './components/user-overview/user-overview.
 import { AngularModule } from './modules/angular/angular.module';
 import { CountFormatPipe } from './pipes/count-format.pipe';
 import { CreateTeamFormComponent } from './templates/create-team-form/create-team-form.component';
+import { BugLogPipe } from './pipes/bug-log.pipe';
+import { BugCountPipe } from './pipes/bug-count.pipe';
 
 
 
@@ -40,6 +42,8 @@ const config = {
     CountFormatPipe,
     ModalComponent,
     CreateTeamFormComponent,
+    BugLogPipe,
+    BugCountPipe,
   ],
   imports: [
     BrowserModule,

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { BehaviorSubject, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { UserRole } from '../enums/UserRole';
 import { ITeam } from '../interfaces/ITeam';
 import { IUser } from '../interfaces/IUser';
 import { AuthenticationService } from './authentication.service';
-import { IBugLog } from '../interfaces/IBugLog';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { switchMap } from 'rxjs/operators';
+import { TeamsService } from './teams.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,19 +22,6 @@ export class UserService {
     private authService: AuthenticationService
   ) { }
 
-
-  isRoot() {
-    return this.authService.userInfo.role === UserRole.ROOT;
-  }
-
-  isTeamLead(team: ITeam) {
-    return team.teamLeads.includes(this.authService.userInfo.uid);
-  }
-
-  isTeamMember(team: ITeam) {
-    return team.teamMembers.includes(this.authService.userInfo.uid);
-  }
-
   getTotalUsers() {
 
     this.afStore.collection<IUser>('users/').valueChanges().subscribe(
@@ -42,51 +29,6 @@ export class UserService {
         next: (users) => {
           this.users.next(users);
         }
-      }
-    );
-  }
-
-  addBugToUser(uid: string, bugLog: IBugLog) {
-    const userRef: AngularFirestoreDocument<IUser> = this.afStore.doc(`users/${uid}`);
-    userRef.get().pipe(
-      switchMap(
-        user => {
-          if (user) {
-            return of(user.data());
-          } else {
-            return of(null);
-          }
-        }
-      )
-    ).subscribe(
-      (user: IUser) => {
-        user.bugCounter++;
-        if (!user.logTracker) {
-          user.logTracker = [];
-        }
-        user.logTracker.push(bugLog);
-        userRef.set(user, { merge: true });
-      }
-    );
-  }
-
-  resetUserBugCount(uid: string, newBugCount?: number) {
-    const userRef: AngularFirestoreDocument<IUser> = this.afStore.doc(`users/${uid}`);
-    userRef.get().pipe(
-      switchMap(
-        user => {
-          if (user) {
-            return of(user.data());
-          } else {
-            return of(null);
-          }
-        }
-      )
-    ).subscribe(
-      (user: IUser) => {
-        user.bugCounter = newBugCount ? newBugCount : 0;
-        user.logTracker = [];
-        userRef.set(user, { merge: true });
       }
     );
   }
@@ -148,4 +90,9 @@ export class UserService {
     );
   }
 
+  isRoot() {
+    return this.authService.userInfo.value.role === UserRole.ROOT;
+  }
+
 }
+

@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { CommonFunctions } from '../classes/CommonFunctions';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { ITeam } from '../interfaces/ITeam';
 import { IUser } from '../interfaces/IUser';
 import { AuthenticationService } from './authentication.service';
+import { UserService } from './user.service';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeamsService {
 
-  teams: Observable<ITeam>[];
+  teams: BehaviorSubject<Observable<ITeam>[]> = new BehaviorSubject([]);
   userId: string;
+  routedTeam: BehaviorSubject<ITeam> = new BehaviorSubject(null);
 
   constructor(
     private afAuth: AngularFireAuth,
     private afStore: AngularFirestore,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private userService: UserService
   ) {
     this.afAuth.authState.subscribe(
       user => {
@@ -27,29 +30,59 @@ export class TeamsService {
     );
   }
 
-  getTeams(user?: IUser) {
-    if (user && user.partOfTeams && user.partOfTeams.length > 0) {
-      this.teams = [];
-      user.partOfTeams.forEach(
-        tid => {
-          console.log(tid);
-          this.teams.push(this.afStore.doc<ITeam>(`teams/${tid}`).valueChanges());
-        }
-      );
-    } else if (this.authService.userInfo && this.authService.userInfo.partOfTeams && this.authService.userInfo.partOfTeams.length > 0) {
-      this.teams = [];
-      this.authService.userInfo.partOfTeams.forEach(
-        tid => {
-          this.teams.push(this.afStore.doc<ITeam>(`teams/${tid}`).valueChanges());
-        }
-      );
+  getTeams() {
+    if (this.authService.userInfo.value) {
+      if (this.userService.isRoot()) {
+        this.afStore.collection<ITeam>(`teams/`).valueChanges().subscribe(
+          (teamsCollection: ITeam[]) => {
+            const teams: Observable<ITeam>[] = [];
+            teamsCollection.forEach(
+              (team: ITeam) => {
+                teams.push(this.afStore.doc<ITeam>(`teams/${team.tid}`).valueChanges());
+              }
+            );
+            this.teams.next(teams);
+          }
+        );
+      } else if (!this.userService.isRoot() && this.authService.userInfo.value.partOfTeams &&
+        this.authService.userInfo.value.partOfTeams.length) {
+        const teams: Observable<ITeam>[] = [];
+        this.authService.userInfo.value.partOfTeams.forEach(
+          (tid: string) => {
+            teams.push(this.afStore.doc<ITeam>(`teams/${tid}`).valueChanges());
+          }
+        );
+        this.teams.next(teams);
+      }
     }
   }
 
   createTeam(teamData: ITeam) {
-    console.log('Create Team:', teamData);
     const teamRef: AngularFirestoreDocument<ITeam> = this.afStore.doc(`teams/${teamData.tid}`);
     teamRef.set(teamData, { merge: true });
+  }
+
+  deleteUserFromTeam(uid: string, tid: string) {
+    const teamRef: AngularFirestoreDocument<ITeam> = this.afStore.doc(`teams/${tid}`);
+    teamRef.get().pipe(
+      switchMap(
+        team => {
+          if (team) {
+            return of(team.data());
+          } else {
+            return of(null);
+          }
+        }
+      )
+    ).subscribe(
+      {
+        next: (team: ITeam) => {
+          team.teamLeads.splice(team.teamLeads.indexOf(uid), 1);
+          team.teamMembers.splice(team.teamMembers.indexOf(uid), 1);
+          teamRef.set(team, { merge: true });
+        }
+      }
+    );
   }
 
   deleteTeam() { }

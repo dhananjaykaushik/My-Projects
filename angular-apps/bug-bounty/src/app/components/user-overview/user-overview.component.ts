@@ -8,6 +8,10 @@ import { IAction } from 'src/app/interfaces/IAction';
 import { ActionId } from 'src/app/enums/ActionId';
 import { GlobalDataService } from 'src/app/services/global-data.service';
 import { CreateTeamFormComponent } from 'src/app/templates/create-team-form/create-team-form.component';
+import { TeamsService } from 'src/app/services/teams.service';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { IBugLog } from 'src/app/interfaces/IBugLog';
+import { ITeam } from 'src/app/interfaces/ITeam';
 
 @Component({
   selector: 'app-user-overview',
@@ -17,6 +21,8 @@ import { CreateTeamFormComponent } from 'src/app/templates/create-team-form/crea
 })
 export class UserOverviewComponent implements OnInit {
 
+  bugLogs: Map<string, Observable<ITeam>> = new Map<string, Observable<ITeam>>();
+  totalBugs: BehaviorSubject<number> = new BehaviorSubject(0);
   actions = Actions;
   commonFunctions = CommonFunctions;
   bugSeverityColorGetter = bugSeverityColorGetter;
@@ -24,11 +30,13 @@ export class UserOverviewComponent implements OnInit {
   constructor(
     public authService: AuthenticationService,
     public userService: UserService,
-    private globalService: GlobalDataService
+    private globalService: GlobalDataService,
+    public teamsService: TeamsService
   ) {
   }
 
   ngOnInit() {
+    this.getAllBugLogs();
     if (this.userService.isRoot()) {
       this.userService.getTotalUsers();
     }
@@ -41,6 +49,26 @@ export class UserOverviewComponent implements OnInit {
         open: true
       });
     }
+  }
+
+  getAllBugLogs() {
+    this.teamsService.teams.subscribe(
+      {
+        next: (teams: Observable<ITeam>[]) => {
+          teams.forEach(
+            (teamObs: Observable<ITeam>) => {
+              teamObs.subscribe(
+                {
+                  next: (team: ITeam) => {
+                    this.bugLogs.set(team.teamName, teamObs);
+                  }
+                }
+              );
+            }
+          );
+        }
+      }
+    );
   }
 
 }

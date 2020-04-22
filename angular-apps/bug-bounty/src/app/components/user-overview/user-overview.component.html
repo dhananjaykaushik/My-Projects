@@ -15,10 +15,12 @@
       <div class="card-title">
         Total Bugs
       </div>
-      <div class="card-value" *ngIf="authService.user$ | async as user; else noBugs;">
-        {{ user.bugCounter | countFormat }}
+      <div class="card-value" *ngIf="bugLogs.size; else noBugs;">
+        {{ (bugLogs | bugCount) | countFormat }}
       </div>
-      <ng-template #noBugs>0</ng-template>
+      <ng-template #noBugs>
+        <div class="card-value">0</div>
+      </ng-template>
     </div>
 
     <div class="aggregate-card" [style.backgroundColor]="commonFunctions.materialColors[8]"
@@ -38,25 +40,34 @@
         Bug Tracker
       </div>
       <div class="card-value">
-        <ng-container *ngIf="authService.user$ | async as user; else noLogs;">
-          <ng-container *ngIf="user.logTracker && user.logTracker.length; else noLogs;">
-            <div class="bug-log" *ngFor="let bug of user.logTracker">
-              <div class="bug-general">
-                <div class="bug-icon">
-                  <span class="material-icons" [style.color]="bugSeverityColorGetter(bug.bugSeverity)"
-                    [matTooltip]="bugSeverityNameGetter(bug.bugSeverity)">
-                    bug_report
-                  </span>
-                </div>
-                <div class="bug-date">
-                  {{commonFunctions.dateFormatter(bug.logDate)}}
-                </div>
-              </div>
-              <div class="bug-desc">
-                {{(bug.description && bug.description.length) ? bug.description : 'Your leader was too lazy to put in description. But you should know you deserve it!'}}
-              </div>
-            </div>
-          </ng-container>
+        <ng-container *ngIf="( bugLogs | bugLog).length; else noLogs;">
+          <div class="bug-log" *ngFor="let bugObs of bugLogs | bugLog">
+            <ng-container *ngIf="bugObs | async as teamBugs;">
+              <ng-container *ngIf="teamBugs.userBugInfo">
+                <ng-container *ngFor="let bug of teamBugs.userBugInfo[authService.userInfo.value.uid].logTracker">
+
+                  <div class="bug-general">
+                    <div class="bug-icon">
+                      <span class="material-icons" [style.color]="bugSeverityColorGetter(bug.bugSeverity)"
+                        [matTooltip]="bugSeverityNameGetter(bug.bugSeverity)">
+                        bug_report
+                      </span>
+                    </div>
+                    <div class="bug-date">
+                      {{commonFunctions.dateFormatter(bug.logDate)}}
+                    </div>
+                  </div>
+                  <div class="bug-desc">
+                    {{(bug.description && bug.description.length) ? bug.description : 'Your leader was too lazy to put in description. But you should know you deserve it!'}}
+                  </div>
+
+                </ng-container>
+              </ng-container>
+
+
+            </ng-container>
+
+          </div>
         </ng-container>
         <ng-template #noLogs>
           <div class="no-data">
@@ -70,7 +81,7 @@
       <div class="card-value">
         <div class="admin-actions">
           <ng-container *ngFor="let action of actions.ADMIN_ACTIONS">
-            <div class="admin-action" *ngIf="action.availableForRoles.includes(authService.userInfo.role)"
+            <div class="admin-action" *ngIf="action.availableForRoles.includes(authService.userInfo.value.role)"
               (click)="actionPerformed(action)">
               <div class="action-icon">
                 <span class="material-icons">

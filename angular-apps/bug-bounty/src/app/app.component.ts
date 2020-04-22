@@ -18,21 +18,22 @@ export class AppComponent implements OnInit {
   ) {
   }
   ngOnInit() {
-    this.auth.user$.pipe(take(1)).subscribe(
+    this.auth.user$.subscribe(
       user => {
-        if (!this.auth.userInfo) {
-          this.auth.userInfo = user;
-          this.globalService.fullPageLoader.next(false);
+        if (user) {
+          this.auth.userInfo.next(user);
+          this.auth.loggedIn.next(true);
         }
+        this.globalService.fullPageLoader.next(false);
       }
     );
     this.globalService.fullPageLoader.subscribe(
       {
         next: (isLoading) => {
           if (!isLoading) {
-            if (this.auth.userInfo && (location.pathname === '/')) {
+            if (this.auth.loggedIn.value && (location.pathname === '/')) {
               this.router.navigate(['home']);
-            } else if (!this.auth.userInfo) {
+            } else if (!this.auth.loggedIn.value) {
               this.router.navigate(['']);
             } else {
               this.router.navigateByUrl(location.pathname);

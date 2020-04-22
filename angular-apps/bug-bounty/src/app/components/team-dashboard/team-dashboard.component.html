@@ -1,1 +1,10 @@
-<p>team-dashboard works!</p>
+<div class="team-dashboard">
+
+  <ng-container *ngIf="teamData && teamData.value">
+    <div class="user-card" *ngFor="let member of teamData.value.teamMembers">
+
+    </div>
+  </ng-container>
+
+
+</div>

@@ -1,5 +1,4 @@
 import { UserRole } from '../enums/UserRole';
-import { IBugLog } from './IBugLog';
 
 export interface IUser {
   uid: string;
@@ -10,6 +9,4 @@ export interface IUser {
   fullName: string;
   phoneNumber?: string;
   partOfTeams?: string[];
-  bugCounter: number;
-  logTracker: IBugLog[];
 }

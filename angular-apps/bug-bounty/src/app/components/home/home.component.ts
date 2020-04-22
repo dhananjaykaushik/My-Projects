@@ -16,13 +16,9 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.auth.user$.subscribe(
-      {
-        next: (user: IUser) => {
-          this.teamsService.getTeams(user);
-        }
-      }
-    );
+    if (this.auth.loggedIn.value) {
+      this.teamsService.getTeams();
+    }
   }
 
 }

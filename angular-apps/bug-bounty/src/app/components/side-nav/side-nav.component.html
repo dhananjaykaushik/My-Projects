@@ -25,9 +25,9 @@
         <span>Teams</span>
       </div>
       <div class="section-listing">
-        <ul *ngIf = "teamsService.teams && teamsService.teams.length;else noTeam;">
-          <li *ngFor="let teamObs of teamsService.teams">
-            <a *ngIf="teamObs | async as team" [routerLink]="[ { outlets: { teamdashboard: ['teams', team.tid] } } ]">
+        <ul *ngIf = "teamsService.teams.value && teamsService.teams.value.length;else noTeam;">
+          <li *ngFor="let teamObs of teamsService.teams.value">
+            <a *ngIf="teamObs | async as team" (click) = "routedTeam(team)" [routerLink]="[ { outlets: { teamdashboard: ['teams', team.tid] } } ]">
               <div class="team-icon">
                 <span class="material-icons">
                   view_quilt
