@@ -4,6 +4,8 @@ import { TeamsService } from 'src/app/services/teams.service';
 import { ITeam } from 'src/app/interfaces/ITeam';
 import { take } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
+import { IUser } from 'src/app/interfaces/IUser';
 
 @Component({
   selector: 'app-team-dashboard',
@@ -13,10 +15,13 @@ import { Observable, BehaviorSubject } from 'rxjs';
 export class TeamDashboardComponent implements OnInit {
 
   teamData: BehaviorSubject<ITeam> = new BehaviorSubject(null);
+  userData: Record<string, BehaviorSubject<IUser>> = {};
+  allMembers: string[];
 
   constructor(
     private route: ActivatedRoute,
-    private teamsService: TeamsService
+    private teamsService: TeamsService,
+    public userService: UserService
   ) { }
 
   ngOnInit() {
@@ -53,7 +58,14 @@ export class TeamDashboardComponent implements OnInit {
 
 
   populateTeamData(teamData: ITeam) {
+    const userIds = [...new Set([...teamData.teamMembers, ...teamData.teamLeads])];
+    this.loadUserData(userIds);
     this.teamData.next(teamData);
+    this.allMembers = userIds;
+  }
+
+  loadUserData(userIds: string[]) {
+    this.userData = this.userService.getUsersInfo(userIds);
   }
 
 }

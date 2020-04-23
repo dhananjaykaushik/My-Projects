@@ -18,6 +18,7 @@ import { CountFormatPipe } from './pipes/count-format.pipe';
 import { CreateTeamFormComponent } from './templates/create-team-form/create-team-form.component';
 import { BugLogPipe } from './pipes/bug-log.pipe';
 import { BugCountPipe } from './pipes/bug-count.pipe';
+import { IntialsPipe } from './pipes/intials.pipe';
 
 
 
@@ -44,6 +45,7 @@ const config = {
     CreateTeamFormComponent,
     BugLogPipe,
     BugCountPipe,
+    IntialsPipe,
   ],
   imports: [
     BrowserModule,

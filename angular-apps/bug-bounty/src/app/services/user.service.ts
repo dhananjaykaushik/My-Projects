@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { BehaviorSubject, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { BehaviorSubject, of, Observable } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
 import { UserRole } from '../enums/UserRole';
 import { ITeam } from '../interfaces/ITeam';
 import { IUser } from '../interfaces/IUser';
 import { AuthenticationService } from './authentication.service';
 import { TeamsService } from './teams.service';
+import { User } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,37 @@ export class UserService {
     private afStore: AngularFirestore,
     private authService: AuthenticationService
   ) { }
+
+  getUsersInfo(uids: string[]): Record<string, BehaviorSubject<IUser>> {
+    const userInfos: Record<string, BehaviorSubject<IUser>> = {};
+
+    uids.forEach(
+      uid => {
+        const userRef: AngularFirestoreDocument<IUser> = this.afStore.doc(`users/${uid}`);
+        userInfos[uid] = new BehaviorSubject(null);
+        userRef.get().pipe(
+          take(1),
+          switchMap(
+            u => {
+              if (u) {
+                return of(u.data());
+              } else {
+                return of(null);
+              }
+            }
+          )
+        ).subscribe(
+          {
+            next: (user: IUser) => {
+              userInfos[uid].next(user);
+            }
+          }
+        );
+      }
+    );
+
+    return userInfos;
+  }
 
   getTotalUsers() {
 

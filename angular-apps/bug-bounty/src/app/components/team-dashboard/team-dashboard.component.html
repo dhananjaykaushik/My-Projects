@@ -1,15 +1,59 @@
 <div class="team-dashboard">
-
   <ng-container *ngIf="teamData && teamData.value">
-    <div class="user-card" *ngFor="let member of teamData.value.teamMembers">
-      <div class="card-header">
-        <div class="card-image"></div>
-        <div class="user-name"></div>
-      </div>
-      <div class="card-content"></div>
+    <div class="user-card" *ngFor="let member of allMembers">
+      <ng-container *ngIf="(userData[member] | async)">
+        <div class="card-header">
+          <div class="card-image">
+            <ng-container
+              *ngIf="(userData[member] | async) && ((userData[member] | async).photoURL) && ((userData[member] | async).displayName)">
+              <img src="{{ (userData[member]|async).photoURL }}" alt="{{ (userData[member]|async).displayName }}">
+            </ng-container>
+            <ng-template #noImage>
+              <div class="initials" *ngIf="((userData[member]|async).displayName) ">
+                {{ (userData[member]|async).displayName | intials }}
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="card-content" *ngIf="(userData[member]|async)">
+          <div class="actions">
+            <button [matMenuTriggerFor]="menu">
+              <span class="material-icons">
+                more_vert
+              </span>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <span class="material-icons">
+                  exposure_zero
+                </span>
+                <span>Reset to zero</span>
+              </button>
+
+              <button mat-menu-item>
+                <span class="material-icons">
+                  all_inclusive
+                </span>
+                <span>Set bug count</span>
+              </button>
+
+              <button mat-menu-item>
+                <span class="material-icons">
+                  exposure_plus_1
+                </span>
+                <span>Add bug</span>
+              </button>
+
+            </mat-menu>
+          </div>
+          <div class="user-name">
+            {{ (userData[member]|async).displayName }}
+          </div>
+          <div class="bug-count">
+            {{ (teamData.value.userBugInfo[member].bugCounter) | countFormat }}
+          </div>
+        </div>
+      </ng-container>
     </div>
   </ng-container>
-
-
-
 </div>
