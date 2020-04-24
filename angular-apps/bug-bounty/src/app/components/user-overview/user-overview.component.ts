@@ -90,8 +90,10 @@ export class UserOverviewComponent implements OnInit {
   updateBugLogs() {
     this.bugLogs.forEach(
       (team: ITeam) => {
-        this.allBugLogs.value.push(...team.userBugInfo[this.authService.userInfo.value.uid].logTracker);
-        this.cdr.detectChanges();
+        if (team.userBugInfo[this.authService.userInfo.value.uid]) {
+          this.allBugLogs.value.push(...team.userBugInfo[this.authService.userInfo.value.uid].logTracker);
+          this.cdr.detectChanges();
+        }
       }
     );
   }
