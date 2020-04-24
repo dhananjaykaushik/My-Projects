@@ -12,24 +12,19 @@ export class BugCountPipe implements PipeTransform {
     private auth: AuthenticationService
   ) { }
 
-  transform(value: Map<string, Observable<ITeam>>): number {
+  transform(value: Map<string, ITeam>): number {
     const bugTeamCount = new Map<string, number>();
     value.forEach(
-      (teamObs: Observable<ITeam>) => {
-        teamObs.subscribe(
-          {
-            next: (team: ITeam) => {
-              const uid = this.auth.userInfo.value.uid;
-              bugTeamCount.set(uid, (team.userBugInfo && team.userBugInfo[uid]) ? team.userBugInfo[uid].bugCounter : 0);
-            }
-          }
-        );
+      (team: ITeam) => {
+        const uid = this.auth.userInfo.value.uid;
+        bugTeamCount.set(uid, (team.userBugInfo && team.userBugInfo[uid]) ? team.userBugInfo[uid].bugCounter : 0);
       }
     );
     let count = 0;
     bugTeamCount.forEach(
       bugCount => count += bugCount
     );
+    console.log(count);
     return count;
   }
 

@@ -7,8 +7,8 @@ import { ITeam } from '../interfaces/ITeam';
 })
 export class BugLogPipe implements PipeTransform {
 
-  transform(value: Map<string, Observable<ITeam>>) {
-    const arr: Observable<ITeam>[] = [];
+  transform(value: Map<string, ITeam>) {
+    const arr: ITeam[] = [];
     value.forEach(
       val => {
         arr.push(val);

@@ -15,12 +15,9 @@
       <div class="card-title">
         Total Bugs
       </div>
-      <div class="card-value" *ngIf="bugLogs.value.length; else noBugs;">
-        {{ (bugLogs.value.length) | countFormat }}
+      <div class="card-value">
+        {{ totalBugCount.value | countFormat }}
       </div>
-      <ng-template #noBugs>
-        <div class="card-value">0</div>
-      </ng-template>
     </div>
 
     <div class="aggregate-card" [style.backgroundColor]="commonFunctions.materialColors[8]"
@@ -40,32 +37,24 @@
         Bug Tracker
       </div>
       <div class="card-value">
-        <ng-container *ngIf="bugLogs.value.length; else noLogs;">
-          <div class="bug-log" *ngFor="let bugObs of bugLogs.value">
-            <ng-container *ngIf="bugObs | async as teamBugs;">
-              <ng-container *ngIf="teamBugs.userBugInfo">
-                <ng-container *ngFor="let bug of teamBugs.userBugInfo[authService.userInfo.value.uid].logTracker">
-
-                  <div class="bug-general">
-                    <div class="bug-icon">
-                      <span class="material-icons" [style.color]="bugSeverityColorGetter(bug.bugSeverity)"
-                        [matTooltip]="bugSeverityNameGetter(bug.bugSeverity)">
-                        bug_report
-                      </span>
-                    </div>
-                    <div class="bug-date">
-                      {{commonFunctions.dateFormatter(bug.logDate)}}
-                    </div>
-                  </div>
-                  <div class="bug-desc">
-                    {{(bug.description && bug.description.length) ? bug.description : 'Your leader was too lazy to put in description. But you should know you deserve it!'}}
-                  </div>
-
-                </ng-container>
-              </ng-container>
+        <ng-container *ngIf="allBugLogs.value.length; else noLogs;">
+          <div class="bug-log" *ngFor="let bug of allBugLogs.value">
 
 
-            </ng-container>
+            <div class="bug-general">
+              <div class="bug-icon">
+                <span class="material-icons" [style.color]="bugSeverityColorGetter(bug.bugSeverity)"
+                  [matTooltip]="bugSeverityNameGetter(bug.bugSeverity)">
+                  bug_report
+                </span>
+              </div>
+              <div class="bug-date">
+                {{commonFunctions.dateFormatter(bug.logDate)}}
+              </div>
+            </div>
+            <div class="bug-desc">
+              {{(bug.description && bug.description.length) ? bug.description : 'Your leader was too lazy to put in description. But you should know you deserve it!'}}
+            </div>
 
           </div>
         </ng-container>

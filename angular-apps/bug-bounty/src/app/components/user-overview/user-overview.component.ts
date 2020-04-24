@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Actions } from 'src/app/classes/Actions';
 import { CommonFunctions } from 'src/app/classes/CommonFunctions';
 import { bugSeverityColorGetter, bugSeverityNameGetter } from 'src/app/enums/BugSeverity';
@@ -21,10 +21,12 @@ import { ITeam } from 'src/app/interfaces/ITeam';
 })
 export class UserOverviewComponent implements OnInit {
 
-  bugLogs: BehaviorSubject<Observable<ITeam>[]> = new BehaviorSubject([]);
+  bugLogs: Map<string, ITeam> = new Map<string, ITeam>();
   totalBugs: BehaviorSubject<number> = new BehaviorSubject(0);
-  totalBugCount = 0;
-  allBugLogs: IBugLog[] = [];
+
+  totalBugCount: BehaviorSubject<number> = new BehaviorSubject(0);
+  allBugLogs: BehaviorSubject<IBugLog[]> = new BehaviorSubject([]);
+
   actions = Actions;
   commonFunctions = CommonFunctions;
   bugSeverityColorGetter = bugSeverityColorGetter;
@@ -33,7 +35,8 @@ export class UserOverviewComponent implements OnInit {
     public authService: AuthenticationService,
     public userService: UserService,
     private globalService: GlobalDataService,
-    public teamsService: TeamsService
+    public teamsService: TeamsService,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -59,17 +62,36 @@ export class UserOverviewComponent implements OnInit {
         next: (teams: Observable<ITeam>[]) => {
           teams.forEach(
             (teamObs: Observable<ITeam>) => {
-              // teamObs.subscribe(
-              //   {
-              //     next: (team: ITeam) => {
-              //       this.bugLogs.value.push(teamObs);
-              //     }
-              //   }
-              // );
-              this.bugLogs.value.push(teamObs);
+              teamObs.subscribe(
+                {
+                  next: (team: ITeam) => {
+                    this.bugLogs = this.bugLogs.set(team.teamName, team);
+                    this.updateTotalBugCount();
+                    this.updateBugLogs();
+                  }
+                }
+              );
             }
           );
         }
+      }
+    );
+  }
+
+  updateTotalBugCount() {
+    this.bugLogs.forEach(
+      (team: ITeam) => {
+        this.totalBugCount.next(this.totalBugCount.value + team.userBugInfo[this.authService.userInfo.value.uid].bugCounter);
+        this.cdr.detectChanges();
+      }
+    );
+  }
+
+  updateBugLogs() {
+    this.bugLogs.forEach(
+      (team: ITeam) => {
+        this.allBugLogs.value.push(...team.userBugInfo[this.authService.userInfo.value.uid].logTracker);
+        this.cdr.detectChanges();
       }
     );
   }
