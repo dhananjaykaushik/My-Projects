@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { BehaviorSubject, of, Observable } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { UserRole } from '../enums/UserRole';
-import { ITeam } from '../interfaces/ITeam';
 import { IUser } from '../interfaces/IUser';
 import { AuthenticationService } from './authentication.service';
-import { TeamsService } from './teams.service';
-import { User } from 'firebase';
 
 @Injectable({
   providedIn: 'root'

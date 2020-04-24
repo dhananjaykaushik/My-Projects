@@ -16,38 +16,25 @@
           </div>
         </div>
         <div class="card-content" *ngIf="(userData[member]|async)">
-          <div class="actions">
+          <div class="actions" *ngIf="(getRole(member) === userRole.ROOT || getRole(member) === userRole.TEAM_LEAD)">
             <button [matMenuTriggerFor]="menu">
               <span class="material-icons">
                 more_vert
               </span>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <span class="material-icons">
-                  exposure_zero
-                </span>
-                <span>Reset to zero</span>
-              </button>
-
-              <button mat-menu-item>
-                <span class="material-icons">
-                  all_inclusive
-                </span>
-                <span>Set bug count</span>
-              </button>
-
-              <button mat-menu-item>
-                <span class="material-icons">
-                  exposure_plus_1
-                </span>
-                <span>Add bug</span>
-              </button>
-
+              <ng-container *ngFor="let action of actions.CARD_ACTIONS">
+                <button mat-menu-item *ngIf="action.availableForRoles.includes(getRole())">
+                  <span class="material-icons">
+                    {{action.actionMaterialIcon}}
+                  </span>
+                  <span>{{action.actionName}}</span>
+                </button>
+              </ng-container>
             </mat-menu>
           </div>
           <div class="user-name">
-            {{ (userData[member]|async).displayName }}
+            {{ ((userData[member]|async).displayName)|titlecase }}
           </div>
           <div class="bug-count">
             {{ (teamData.value.userBugInfo[member].bugCounter) | countFormat }}

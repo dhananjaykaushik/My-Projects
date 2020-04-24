@@ -6,6 +6,9 @@ import { take } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { IUser } from 'src/app/interfaces/IUser';
+import { UserRole } from 'src/app/enums/UserRole';
+import { Actions } from 'src/app/classes/Actions';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-team-dashboard',
@@ -17,11 +20,14 @@ export class TeamDashboardComponent implements OnInit {
   teamData: BehaviorSubject<ITeam> = new BehaviorSubject(null);
   userData: Record<string, BehaviorSubject<IUser>> = {};
   allMembers: string[];
+  actions = Actions;
+  userRole = UserRole;
 
   constructor(
     private route: ActivatedRoute,
     private teamsService: TeamsService,
-    public userService: UserService
+    public userService: UserService,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -66,6 +72,16 @@ export class TeamDashboardComponent implements OnInit {
 
   loadUserData(userIds: string[]) {
     this.userData = this.userService.getUsersInfo(userIds);
+  }
+
+  getRole(): UserRole {
+    if (this.authService.userInfo.value && this.authService.userInfo.value.role === UserRole.ROOT) {
+      return UserRole.ROOT;
+    }
+    if (this.teamData.value && this.teamData.value.teamLeads.includes(this.authService.userInfo.value.uid)) {
+      return UserRole.TEAM_LEAD;
+    }
+    return UserRole.MEMBER;
   }
 
 }

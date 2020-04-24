@@ -1,4 +1,5 @@
 export enum UserRole {
   ROOT = 0,
-  MEMBER
+  MEMBER,
+  TEAM_LEAD
 }
