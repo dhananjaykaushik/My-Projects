@@ -81,8 +81,10 @@ export class UserOverviewComponent implements OnInit {
   updateTotalBugCount() {
     this.bugLogs.forEach(
       (team: ITeam) => {
-        this.totalBugCount.next(this.totalBugCount.value + team.userBugInfo[this.authService.userInfo.value.uid].bugCounter);
-        this.cdr.detectChanges();
+        if (team.userBugInfo[this.authService.userInfo.value.uid]) {
+          this.totalBugCount.next(this.totalBugCount.value + team.userBugInfo[this.authService.userInfo.value.uid].bugCounter);
+          this.cdr.detectChanges();
+        }
       }
     );
   }
