@@ -19,6 +19,10 @@ import { CreateTeamFormComponent } from './templates/create-team-form/create-tea
 import { BugLogPipe } from './pipes/bug-log.pipe';
 import { BugCountPipe } from './pipes/bug-count.pipe';
 import { IntialsPipe } from './pipes/intials.pipe';
+import { UserInfoModalComponent } from './templates/user-info-modal/user-info-modal.component';
+import { BugMoneyPipe } from './pipes/bug-money.pipe';
+import { BugCountSetComponent } from './templates/bug-count-set/bug-count-set.component';
+import { AddUserBugComponent } from './templates/add-user-bug/add-user-bug.component';
 
 
 
@@ -46,6 +50,10 @@ const config = {
     BugLogPipe,
     BugCountPipe,
     IntialsPipe,
+    UserInfoModalComponent,
+    BugMoneyPipe,
+    BugCountSetComponent,
+    AddUserBugComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +69,6 @@ const config = {
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [CreateTeamFormComponent]
+  entryComponents: [CreateTeamFormComponent, UserInfoModalComponent, BugCountSetComponent, AddUserBugComponent]
 })
 export class AppModule { }

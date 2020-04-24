@@ -1,0 +1,47 @@
+<div class="user-info">
+  <div class="user-item">
+    <span class="heading">
+      Team Name
+    </span>
+    <span class="content">
+      {{ data.teamData.teamName }}
+    </span>
+  </div>
+
+  <div class="user-item">
+    <span class="heading">
+      User Name
+    </span>
+    <span class="content">
+      {{ data.userData.displayName }}
+    </span>
+  </div>
+
+  <div class="user-item">
+    <span class="heading">
+      User Email
+    </span>
+    <span class="content">
+      {{ data.userData.email }}
+    </span>
+  </div>
+
+  <div class="user-item">
+    <span class="heading">
+      Total Bugs
+    </span>
+    <span class="content">
+      {{ data.teamData.userBugInfo[data.userData.uid].bugCounter }}
+    </span>
+  </div>
+
+  <div class="user-item">
+    <span class="heading">
+      Price
+    </span>
+    <span class="content">
+      <i style = "font-size: 16px; margin-right: 6px;" class="fas fa-rupee-sign"></i>{{ data.teamData.userBugInfo[data.userData.uid].bugCounter | bugMoney }}
+    </span>
+  </div>
+
+</div>

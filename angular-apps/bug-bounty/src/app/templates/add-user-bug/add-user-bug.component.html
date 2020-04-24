@@ -1,0 +1,25 @@
+<div mat-dialog-content class="mat-content">
+  <mat-form-field appearance="outline">
+    <mat-label>Bug Description</mat-label>
+    <textarea style="resize: none; height: 120px; overflow: scroll;" matInput placeholder="Set Bug Description" [(ngModel)] = "bugLog.description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Bug Severity</mat-label>
+    <mat-select single [required]="true" [formControl]="bugSevFormControl">
+
+        <mat-option *ngFor="let severity of bugSeverity" [value]="BugSeverity[severity]" >
+          {{ severity }}
+        </mat-option>
+
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+
+
+<div mat-dialog-actions class="mat-actions">
+  <button class="matButton" mat-button (click)="onNoClick()">Cancel</button>
+  <button class="matButton" mat-button (click) = "addBug()">Add Bug</button>
+</div>

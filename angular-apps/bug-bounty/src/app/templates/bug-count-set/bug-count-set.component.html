@@ -1,0 +1,10 @@
+<div mat-dialog-content class="mat-content">
+  <mat-form-field appearance="outline">
+    <mat-label>Set Bug Count</mat-label>
+    <input matInput [(ngModel)]="bugCount">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="mat-actions">
+  <button class="matButton" mat-button (click)="onNoClick()">Cancel</button>
+  <button class="matButton" mat-button [mat-dialog-close]="bugCount">Set</button>
+</div>

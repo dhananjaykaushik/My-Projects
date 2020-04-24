@@ -41,7 +41,8 @@ export class CreateTeamFormComponent implements OnInit {
         uid => {
           const bugData: IUserBugInfo = {
             bugCounter: 0,
-            logTracker: []
+            logTracker: [],
+            history: []
           };
           bugInfo[uid] = bugData;
         }
@@ -50,7 +51,8 @@ export class CreateTeamFormComponent implements OnInit {
         uid => {
           const bugData: IUserBugInfo = {
             bugCounter: 0,
-            logTracker: []
+            logTracker: [],
+            history: []
           };
           bugInfo[uid] = bugData;
         }

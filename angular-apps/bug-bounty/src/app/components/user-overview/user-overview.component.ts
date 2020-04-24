@@ -21,8 +21,10 @@ import { ITeam } from 'src/app/interfaces/ITeam';
 })
 export class UserOverviewComponent implements OnInit {
 
-  bugLogs: Map<string, Observable<ITeam>> = new Map<string, Observable<ITeam>>();
+  bugLogs: BehaviorSubject<Observable<ITeam>[]> = new BehaviorSubject([]);
   totalBugs: BehaviorSubject<number> = new BehaviorSubject(0);
+  totalBugCount = 0;
+  allBugLogs: IBugLog[] = [];
   actions = Actions;
   commonFunctions = CommonFunctions;
   bugSeverityColorGetter = bugSeverityColorGetter;
@@ -57,13 +59,14 @@ export class UserOverviewComponent implements OnInit {
         next: (teams: Observable<ITeam>[]) => {
           teams.forEach(
             (teamObs: Observable<ITeam>) => {
-              teamObs.subscribe(
-                {
-                  next: (team: ITeam) => {
-                    this.bugLogs.set(team.teamName, teamObs);
-                  }
-                }
-              );
+              // teamObs.subscribe(
+              //   {
+              //     next: (team: ITeam) => {
+              //       this.bugLogs.value.push(teamObs);
+              //     }
+              //   }
+              // );
+              this.bugLogs.value.push(teamObs);
             }
           );
         }

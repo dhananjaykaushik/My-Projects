@@ -77,12 +77,26 @@ export class TeamsService {
     ).subscribe(
       {
         next: (team: ITeam) => {
-          team.teamLeads.splice(team.teamLeads.indexOf(uid), 1);
-          team.teamMembers.splice(team.teamMembers.indexOf(uid), 1);
-          teamRef.set(team, { merge: true });
+          let flag = false;
+          if (team.teamLeads.includes(uid)) {
+            flag = true;
+            team.teamLeads.splice(team.teamLeads.indexOf(uid), 1);
+          }
+          if (team.teamMembers.includes(uid)) {
+            flag = true;
+            team.teamMembers.splice(team.teamMembers.indexOf(uid), 1);
+          }
+          if (flag) {
+            teamRef.set(team, { merge: true });
+          }
         }
       }
     );
+  }
+
+  updateTeam(team: ITeam) {
+    const teamRef: AngularFirestoreDocument<ITeam> = this.afStore.doc(`teams/${team.tid}`);
+    teamRef.set(team, { merge: true });
   }
 
   deleteTeam() { }

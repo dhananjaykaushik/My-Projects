@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { BehaviorSubject, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { UserRole } from '../enums/UserRole';
 import { IUser } from '../interfaces/IUser';
 import { AuthenticationService } from './authentication.service';
+import { GlobalDataService } from './global-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +15,9 @@ export class UserService {
   users: BehaviorSubject<IUser[]> = new BehaviorSubject([]);
 
   constructor(
-    private afAuth: AngularFireAuth,
     private afStore: AngularFirestore,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private globalService: GlobalDataService
   ) { }
 
   getUsersInfo(uids: string[]): Record<string, BehaviorSubject<IUser>> {
@@ -121,6 +121,15 @@ export class UserService {
 
   isRoot() {
     return this.authService.userInfo.value.role === UserRole.ROOT;
+  }
+
+  removeUserFromApp(uid: string) {
+    const userRef: AngularFirestoreDocument<IUser> = this.afStore.doc(`users/${uid}`);
+    userRef.delete().then(() => {
+      this.globalService.showSnackbar('User deleted successfully!');
+    }).catch(() => {
+      this.globalService.showSnackbar('Error deleting user!');
+    });
   }
 
 }

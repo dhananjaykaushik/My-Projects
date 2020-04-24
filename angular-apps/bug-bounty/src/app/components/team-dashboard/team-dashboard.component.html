@@ -1,6 +1,9 @@
+<div class="team-name" *ngIf="teamData && teamData.value">
+  {{teamData.value.teamName}}
+</div>
 <div class="team-dashboard">
   <ng-container *ngIf="teamData && teamData.value">
-    <div class="user-card" *ngFor="let member of allMembers">
+    <div class="user-card" *ngFor="let member of allMembers.value" (click)="showUserInfo(userData[member])">
       <ng-container *ngIf="(userData[member] | async)">
         <div class="card-header">
           <div class="card-image">
@@ -17,14 +20,14 @@
         </div>
         <div class="card-content" *ngIf="(userData[member]|async)">
           <div class="actions" *ngIf="(getRole() === userRole.ROOT || getRole() === userRole.TEAM_LEAD)">
-            <button [matMenuTriggerFor]="menu">
+            <button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation();">
               <span class="material-icons">
                 more_vert
               </span>
             </button>
             <mat-menu #menu="matMenu">
               <ng-container *ngFor="let action of actions.CARD_ACTIONS">
-                <button mat-menu-item *ngIf="action.availableForRoles.includes(getRole())">
+                <button [class.actionRed]="action.actionClass === 'action-red'" mat-menu-item *ngIf="action.availableForRoles.includes(getRole())" (click) = performAction(action,member)>
                   <span class="material-icons">
                     {{action.actionMaterialIcon}}
                   </span>

@@ -174,14 +174,33 @@ button.mat-menu-item
   display: flex
   align-items: center
   span
-    font-size: 14px
+    font-size: 13.5px
     &.material-icons
-      font-size: 22px
+      font-size: 19px
       margin-right: 14px
-      font-weight: 600
+      font-weight: 500
   &:focus
     background: 0
 
+
+button.actionRed
+  background: transparentize(red, 0.9)
+  span
+    color: red
+  &:hover
+    background: transparentize(red, 0.75) !important
+
+button.matButton
+  border: 1px solid #222222
+  color: #222222
+  font-weight: 500
+  font-size: 14px
+  padding: 10px 14px
+  border-radius: 4px
+  &:hover
+    transition: all 0.3s ease-in-out
+    background: #333333
+    color: white
 
 @media screen and (min-width: 500px)
   .user-overview

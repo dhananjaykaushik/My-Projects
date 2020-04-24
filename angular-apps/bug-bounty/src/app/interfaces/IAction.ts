@@ -6,4 +6,5 @@ export interface IAction {
   actionName: string;
   actionMaterialIcon: string;
   availableForRoles: UserRole[];
+  actionClass: string;
 }

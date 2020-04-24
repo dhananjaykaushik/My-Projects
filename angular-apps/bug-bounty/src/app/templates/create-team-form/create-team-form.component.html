@@ -22,7 +22,7 @@
           <span class="material-icons rootUser" *ngIf="user.role === userRole.ROOT">
             cake
           </span>
-          {{user.displayName}}
+          {{user.displayName|titlecase}}
         </mat-option>
       </ng-container>
     </mat-select>
@@ -37,7 +37,7 @@
           <span class="material-icons rootUser" *ngIf="user.role === userRole.ROOT">
             cake
           </span>
-          {{user.displayName}}
+          {{user.displayName|titlecase}}
         </mat-option>
       </ng-container>
     </mat-select>

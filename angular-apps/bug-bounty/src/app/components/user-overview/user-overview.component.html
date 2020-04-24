@@ -15,8 +15,8 @@
       <div class="card-title">
         Total Bugs
       </div>
-      <div class="card-value" *ngIf="bugLogs.size; else noBugs;">
-        {{ (bugLogs | bugCount) | countFormat }}
+      <div class="card-value" *ngIf="bugLogs.value.length; else noBugs;">
+        {{ (bugLogs.value.length) | countFormat }}
       </div>
       <ng-template #noBugs>
         <div class="card-value">0</div>
@@ -40,8 +40,8 @@
         Bug Tracker
       </div>
       <div class="card-value">
-        <ng-container *ngIf="( bugLogs | bugLog).length; else noLogs;">
-          <div class="bug-log" *ngFor="let bugObs of bugLogs | bugLog">
+        <ng-container *ngIf="bugLogs.value.length; else noLogs;">
+          <div class="bug-log" *ngFor="let bugObs of bugLogs.value">
             <ng-container *ngIf="bugObs | async as teamBugs;">
               <ng-container *ngIf="teamBugs.userBugInfo">
                 <ng-container *ngFor="let bug of teamBugs.userBugInfo[authService.userInfo.value.uid].logTracker">
