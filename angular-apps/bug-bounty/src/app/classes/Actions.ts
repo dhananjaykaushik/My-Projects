@@ -47,7 +47,7 @@ export class Actions {
       actionId: ActionId.REMOVE_MEMBER_FROM_TEAM,
       actionMaterialIcon: 'warning',
       actionName: 'Remove User From Team',
-      availableForRoles: [UserRole.ROOT, UserRole.TEAM_LEAD],
+      availableForRoles: [UserRole.ROOT],
       actionClass: 'action-red'
     },
     {
