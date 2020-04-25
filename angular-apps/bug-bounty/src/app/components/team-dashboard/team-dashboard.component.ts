@@ -140,7 +140,7 @@ export class TeamDashboardComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe((bugLog: IBugLog) => {
         if (bugLog && bugLog.description) {
-          if (!this.teamData.value.userBugInfo[uid].logTracker && !this.teamData.value.userBugInfo[uid].logTracker.length) {
+          if (!this.teamData.value.userBugInfo[uid].logTracker || !this.teamData.value.userBugInfo[uid].logTracker.length) {
             this.teamData.value.userBugInfo[uid].logTracker = [];
           }
           this.teamData.value.userBugInfo[uid].logTracker.push(bugLog);
