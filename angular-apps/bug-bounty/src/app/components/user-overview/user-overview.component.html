@@ -59,7 +59,12 @@
           </div>
         </ng-container>
         <ng-template #noLogs>
-          <div class="no-data">
+          <div class="no-data" style="flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 90px;
+          ">
             No mistakes made yet. You're under surveillance;
           </div>
         </ng-template>
@@ -67,7 +72,10 @@
     </div>
     <div class="detailed-card" *ngIf="userService.isRoot()">
       <div class="card-title">Admin Actions</div>
-      <div class="card-value">
+      <div class="card-value" style="flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;">
         <div class="admin-actions">
           <ng-container *ngFor="let action of actions.ADMIN_ACTIONS">
             <div class="admin-action" *ngIf="action.availableForRoles.includes(authService.userInfo.value.role)"

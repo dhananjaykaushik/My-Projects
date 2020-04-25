@@ -40,7 +40,7 @@ export class AddUserBugComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(null);
   }
 
   addBug() {

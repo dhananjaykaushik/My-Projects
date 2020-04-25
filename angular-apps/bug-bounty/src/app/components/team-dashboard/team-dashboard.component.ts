@@ -139,12 +139,14 @@ export class TeamDashboardComponent implements OnInit {
         width: '310px'
       });
       dialogRef.afterClosed().subscribe((bugLog: IBugLog) => {
-        if (this.teamData.value.userBugInfo[uid].logTracker && this.teamData.value.userBugInfo[uid].logTracker.length) {
-          this.teamData.value.userBugInfo[uid].logTracker = [];
+        if (bugLog && bugLog.description) {
+          if (this.teamData.value.userBugInfo[uid].logTracker && this.teamData.value.userBugInfo[uid].logTracker.length) {
+            this.teamData.value.userBugInfo[uid].logTracker = [];
+          }
+          this.teamData.value.userBugInfo[uid].logTracker.push(bugLog);
+          ++this.teamData.value.userBugInfo[uid].bugCounter;
+          this.teamsService.updateTeam(this.teamData.value);
         }
-        this.teamData.value.userBugInfo[uid].logTracker.push(bugLog);
-        ++this.teamData.value.userBugInfo[uid].bugCounter;
-        this.teamsService.updateTeam(this.teamData.value);
       });
     }
   }
