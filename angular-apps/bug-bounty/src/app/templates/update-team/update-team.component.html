@@ -1,0 +1,10 @@
+<div mat-dialog-content class="mat-content">
+    <mat-form-field appearance="outline">
+        <mat-label>Team Name</mat-label>
+        <input placeholder="Set Team Name" matInput [(ngModel)]="teamName">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions class="mat-actions">
+    <button class="matButton" mat-button (click)="onNoClick()">Cancel</button>
+    <button class="matButton" mat-button [mat-dialog-close]="teamName">Update</button>
+</div>

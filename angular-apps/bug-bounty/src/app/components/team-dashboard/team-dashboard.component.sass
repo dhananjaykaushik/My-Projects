@@ -1,11 +1,39 @@
 \:host
   height: 100%
   width: 100%
-  .team-name
+  .team-name-with-actions
     padding: 12px 24px
-    font-size: 26px
-    color: #222222
-    font-weight: 600
+    display: flex
+    .team-name
+      flex: 1
+      font-size: 26px
+      color: #222222
+      font-weight: 600
+    .actions
+      display: flex
+      justify-content: flex-end
+      button
+        display: flex
+        align-items: center
+        font-size: 14px
+        font-weight: 500
+        border: 1px solid #222222
+        border-radius: 4px
+        padding: 4px 8px
+        color: #222222
+        &:hover
+          background: #222222
+          color: white
+          transition: all 0.3s ease-in-out
+        &:focus
+          background: #222222
+          color: white
+        span
+          font-size: 22px
+          margin-right: 6px
+        &.active
+          background: #222222
+          color: white
   .team-dashboard
     display: grid
     padding: 24px

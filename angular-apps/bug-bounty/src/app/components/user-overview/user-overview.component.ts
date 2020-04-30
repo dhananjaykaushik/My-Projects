@@ -65,9 +65,11 @@ export class UserOverviewComponent implements OnInit {
               teamObs.subscribe(
                 {
                   next: (team: ITeam) => {
-                    this.bugLogs = this.bugLogs.set(team.teamName, team);
-                    this.updateTotalBugCount();
-                    this.updateBugLogs();
+                    if (team) {
+                      this.bugLogs = this.bugLogs.set(team.teamName, team);
+                      this.updateTotalBugCount();
+                      this.updateBugLogs();
+                    }
                   }
                 }
               );

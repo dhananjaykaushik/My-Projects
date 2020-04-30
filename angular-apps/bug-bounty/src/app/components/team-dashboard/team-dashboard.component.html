@@ -1,5 +1,26 @@
-<div class="team-name" *ngIf="teamData && teamData.value">
-  {{teamData.value.teamName}}
+<div class="team-name-with-actions" *ngIf="teamData && teamData.value">
+  <div class="team-name">
+    {{teamData.value.teamName}}
+  </div>
+  <div class="actions">
+    <button [matMenuTriggerFor]="teamActionsMenu" (click)="$event.stopPropagation();">
+      <span class="material-icons">
+        dashboard
+      </span>
+      Actions
+    </button>
+    <mat-menu #teamActionsMenu="matMenu">
+      <ng-container *ngFor="let action of actions.TEAM_ACTIONS">
+        <button (click) = "performTeamActions(action)" [class.actionRed]="action.actionClass === 'action-red'" mat-menu-item *ngIf="action.availableForRoles.includes(getRole())">
+          <span class="material-icons">
+            {{action.actionMaterialIcon}}
+          </span>
+          <span>{{action.actionName}}</span>
+        </button>
+      </ng-container>
+    </mat-menu>
+
+  </div>
 </div>
 <div class="team-dashboard">
   <ng-container *ngIf="teamData && teamData.value">
@@ -27,7 +48,8 @@
             </button>
             <mat-menu #menu="matMenu">
               <ng-container *ngFor="let action of actions.CARD_ACTIONS">
-                <button [class.actionRed]="action.actionClass === 'action-red'" mat-menu-item *ngIf="action.availableForRoles.includes(getRole())" (click) = performAction(action,member)>
+                <button [class.actionRed]="action.actionClass === 'action-red'" mat-menu-item
+                  *ngIf="action.availableForRoles.includes(getRole())" (click)=performAction(action,member)>
                   <span class="material-icons">
                     {{action.actionMaterialIcon}}
                   </span>

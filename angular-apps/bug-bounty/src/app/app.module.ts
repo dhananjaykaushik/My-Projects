@@ -23,6 +23,8 @@ import { UserInfoModalComponent } from './templates/user-info-modal/user-info-mo
 import { BugMoneyPipe } from './pipes/bug-money.pipe';
 import { BugCountSetComponent } from './templates/bug-count-set/bug-count-set.component';
 import { AddUserBugComponent } from './templates/add-user-bug/add-user-bug.component';
+import { UpdateTeamComponent } from './templates/update-team/update-team.component';
+import { AddMembersToTeamComponent } from './templates/add-members-to-team/add-members-to-team.component';
 
 
 
@@ -54,6 +56,8 @@ const config = {
     BugMoneyPipe,
     BugCountSetComponent,
     AddUserBugComponent,
+    UpdateTeamComponent,
+    AddMembersToTeamComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,6 @@ const config = {
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [CreateTeamFormComponent, UserInfoModalComponent, BugCountSetComponent, AddUserBugComponent]
+  entryComponents: [CreateTeamFormComponent, UserInfoModalComponent, BugCountSetComponent, AddUserBugComponent, UpdateTeamComponent, AddMembersToTeamComponent]
 })
 export class AppModule { }

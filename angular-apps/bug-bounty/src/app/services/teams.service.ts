@@ -99,6 +99,9 @@ export class TeamsService {
     teamRef.set(team, { merge: true });
   }
 
-  deleteTeam() { }
+  deleteTeam(tid: string): Promise<void> {
+    const teamRef: AngularFirestoreDocument<ITeam> = this.afStore.doc(`teams/${tid}`);
+    return teamRef.delete();
+  }
 
 }

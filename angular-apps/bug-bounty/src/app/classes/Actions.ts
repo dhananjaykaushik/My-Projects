@@ -58,15 +58,29 @@ export class Actions {
       actionClass: 'action-red'
     }
   ];
+
+  static TEAM_ACTIONS: IAction[] = [
+    {
+      actionId: ActionId.DELETE_TEAM,
+      actionMaterialIcon: 'delete_forever',
+      actionName: 'Delete Team',
+      availableForRoles: [UserRole.ROOT],
+      actionClass: 'action-red'
+    },
+    {
+      actionId: ActionId.UPDATE_TEAM,
+      actionMaterialIcon: 'edit',
+      actionName: 'Change Team Name',
+      availableForRoles: [UserRole.ROOT, UserRole.TEAM_LEAD],
+      actionClass: 'default'
+    },
+    {
+      actionId: ActionId.ADD_MEMBERS_TO_TEAM,
+      actionMaterialIcon: 'accessibility',
+      actionName: 'Add Members',
+      availableForRoles: [UserRole.ROOT],
+      actionClass: 'default'
+    }
+  ];
 }
 
-
-
-// <button mat-menu-item>
-
-//               <button mat-menu-item>
-//                 <span class="material-icons">
-//                   exposure_plus_1
-//                 </span>
-//                 <span>Add bug</span>
-//               </button>

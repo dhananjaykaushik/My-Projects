@@ -1,22 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { TeamsService } from 'src/app/services/teams.service';
-import { ITeam } from 'src/app/interfaces/ITeam';
-import { take } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { UserService } from 'src/app/services/user.service';
-import { IUser } from 'src/app/interfaces/IUser';
-import { UserRole } from 'src/app/enums/UserRole';
-import { Actions } from 'src/app/classes/Actions';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { IAction } from 'src/app/interfaces/IAction';
 import { MatDialog } from '@angular/material/dialog';
-import { UserInfoModalComponent } from 'src/app/templates/user-info-modal/user-info-modal.component';
-import { IUserInfo } from 'src/app/interfaces/IUserInfo';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Actions } from 'src/app/classes/Actions';
 import { ActionId } from 'src/app/enums/ActionId';
-import { BugCountSetComponent } from 'src/app/templates/bug-count-set/bug-count-set.component';
-import { AddUserBugComponent } from 'src/app/templates/add-user-bug/add-user-bug.component';
+import { UserRole } from 'src/app/enums/UserRole';
+import { IAction } from 'src/app/interfaces/IAction';
 import { IBugLog } from 'src/app/interfaces/IBugLog';
+import { ITeam } from 'src/app/interfaces/ITeam';
+import { IUser } from 'src/app/interfaces/IUser';
+import { IUserBugInfo } from 'src/app/interfaces/IUserBugInfo';
+import { IUserInfo } from 'src/app/interfaces/IUserInfo';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { TeamsService } from 'src/app/services/teams.service';
+import { UserService } from 'src/app/services/user.service';
+import { AddMembersToTeamComponent } from 'src/app/templates/add-members-to-team/add-members-to-team.component';
+import { AddUserBugComponent } from 'src/app/templates/add-user-bug/add-user-bug.component';
+import { BugCountSetComponent } from 'src/app/templates/bug-count-set/bug-count-set.component';
+import { UpdateTeamComponent } from 'src/app/templates/update-team/update-team.component';
+import { UserInfoModalComponent } from 'src/app/templates/user-info-modal/user-info-modal.component';
+import { GlobalDataService } from 'src/app/services/global-data.service';
 
 @Component({
   selector: 'app-team-dashboard',
@@ -36,10 +39,15 @@ export class TeamDashboardComponent implements OnInit {
     private teamsService: TeamsService,
     public userService: UserService,
     private authService: AuthenticationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router,
+    private globalService: GlobalDataService
   ) { }
 
   ngOnInit() {
+    if (this.userService.isRoot()) {
+      this.userService.getTotalUsers();
+    }
     this.route.paramMap.subscribe(
       {
         next: (params: ParamMap) => {
@@ -160,6 +168,68 @@ export class TeamDashboardComponent implements OnInit {
       data: userInfo
     });
 
+  }
+
+  performTeamActions(action: IAction) {
+    if (action.actionId === ActionId.UPDATE_TEAM) {
+      const dialogRef = this.dialog.open(UpdateTeamComponent, {
+        width: '310px',
+        data: this.teamData.value
+      });
+      dialogRef.afterClosed().subscribe((teamName: string) => {
+        if (teamName) {
+          this.teamData.value.teamName = teamName;
+          this.teamsService.updateTeam(this.teamData.value);
+        }
+      });
+    } else if (action.actionId === ActionId.ADD_MEMBERS_TO_TEAM) {
+
+      const dialogRef = this.dialog.open(AddMembersToTeamComponent, {
+        width: '310px',
+        data: this.teamData.value
+      });
+      dialogRef.afterClosed().subscribe((members: string[]) => {
+        if (members && members.length) {
+          members.forEach(
+            member => {
+              this.teamData.value.teamMembers.push(member);
+              const userInfo: IUserBugInfo = {
+                bugCounter: 0,
+                history: [0],
+                logTracker: []
+              };
+              this.teamData.value.userBugInfo[member] = userInfo;
+            }
+          );
+          this.teamsService.updateTeam(this.teamData.value);
+        }
+      });
+
+    } else if (action.actionId === ActionId.DELETE_TEAM) {
+
+      this.teamData.value.teamLeads.forEach(
+        uid => {
+          this.userService.removeUserFromTeam(uid, this.teamData.value.tid);
+        }
+      );
+
+      this.teamData.value.teamMembers.forEach(
+        uid => {
+          this.userService.removeUserFromTeam(uid, this.teamData.value.tid);
+        }
+      );
+
+      this.teamsService.deleteTeam(this.teamData.value.tid).then(
+        () => {
+          this.router.navigate(['home']);
+          this.globalService.showSnackbar('Team deleted successfully');
+        }
+      ).catch(
+        () => {
+          this.globalService.showSnackbar('Error deleting team');
+        }
+      );
+    }
   }
 
 }
