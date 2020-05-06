@@ -82,7 +82,7 @@ body {
     justify-content: center;
     align-items: center;
     content: ' ';
-    background-image: url('./assets/enemy2.svg');
+    background-image: url('./assets/enemy1.svg');
     background-size: var(--boxSize) var(--boxSize);
     height: 100%;
     width: 100%;
