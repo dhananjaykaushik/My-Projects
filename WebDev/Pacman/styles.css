@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+html {
+    /* Variables */
+    --background: #081f3a !important;
+    --boxBackground: #1a4781;
+    --foodColor: gold;
+}
+
+
+body {
+    display: flex;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background);
+    height: 100vh;
+    width: 100vw;
+}
+
+.container #options {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background-color: #7f7f7f;
+    padding: 12px;
+}
+
+.container #options .option {
+    display: flex;
+    color: white;
+    font-weight: 500;
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+#game-board {
+    display: flex;
+    flex-direction: column;
+}
+
+#game-end {
+    position: absolute;
+    height: 500px;
+    width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #081f3ac2;
+    flex-direction: column;
+    color: white;
+}
+
+#game-end #message {
+    font-size: 52px;
+    color: white;
+    font-weight: 600;
+}
+
+#game-end button {
+    border: 0;
+    color: white;
+    background-color: #ff5722;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-top: 22px;
+    cursor: pointer;
+}
+
+#game-board .row {
+    display: flex;
+}
+
+.box {
+    background-color: var(--background);
+}
+
+.box.empty {
+    cursor: pointer;
+    border: 0.2px solid white;
+}
+
+.box.block {
+    background-color: var(--boxBackground);
+    border: 0 !important;
+}
+
+.box.enemy {
+    border: 0 !important;
+}
+
+.box.enemy:before {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    content: ' ' !important;
+    background-image: url('./assets/enemy1.svg') !important;
+    background-size: var(--boxSize) var(--boxSize) !important;
+    height: 100% !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+    background-color: var(--background) !important;
+}
+
+.box.hero {
+    border: 0 !important;
+}
+
+.box.hero.up {
+    transform: rotate(-90deg) !important;
+}
+.box.hero.down {
+    transform: rotate(90deg) !important;
+}
+.box.hero.left {
+   transform: rotate(180deg) !important;
+}
+.box.hero.right {
+   transform: rotate(0deg) !important;
+}
+
+.box.hero:before {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    content: ' ' !important;
+    background-image: url('./assets/pacman.svg') !important;
+    background-size: 100% 100% !important;
+    height: 100% !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+    background-color: var(--background) !important;
+}
+
+.box.food {
+    border: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box.food:before {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    content: ' ';
+    height: 9px;
+    width: 9px;
+    border-radius: 100%;
+    background-color: var(--foodColor);
+}
+
+.box.specialfood {
+    border: 0 !important;
+}
+
+.box.specialfood:before {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    content: ' ';
+    background-image: url('./assets/specialfood.svg');
+    background-size: var(--boxSize) var(--boxSize);
+    height: 100%;
+    width: 100%;
+}
