@@ -14,6 +14,5 @@ Fork the repository and enhance it and introduce new features.
 | **2. Tic Tac Toe ( Singleplayer )** | WebDev/TicTacToeAI |                 #html #js #css #ai                  |
 | **3. Type Racer**                   |  WebDev/TypeRacer  |                   #html #js #css                    |
 | **4. Pacman**                       |   WebDev/Pacman    |                   #html #js #css                    |
-| **5. Video Chat App**               |   WebDev/Pacman    | #html #js #css #node #websocket #simplePeer(WebRTC) |
 
 > Programming isn't about what you know; it's about what you can figure out. - _Chris Pine_
