@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 24px;
+    height: 100%;
+    width: 100%;
+}
+
+#container #message-container {
+    flex: 1;
+    min-height: 500px;
+}
+
+#container #message-container .message {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 18px;
+    background: #CDDC39;
+    border-radius: 4px;
+}
+
+#container #message-container .message .sender {
+    font-weight: 600;
+    font-size: 15px;
+    color: #222222;
+    margin-bottom: 8px;
+}
+
+#container #message-container .message .message-con {
+    font-weight: 500;
+    font-size: 13px;
+    color: #333333;
+    padding-left: 8px;
+}
+
+#container #send-message-container {
+    height: 44px;
+    display: flex;
+}
+
+#container #send-message-container #message-field {
+    margin-right: 12px;
+    border: 1px solid #222222;
+    color: #222222;
+    font-size: 14px;
+    flex: 1;
+}
+
+#container #send-message-container #send-message {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: #222222;
+    color: white;
+    cursor: pointer;
+}
