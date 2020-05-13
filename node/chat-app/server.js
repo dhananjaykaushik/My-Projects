@@ -1,4 +1,5 @@
 const io = require('socket.io')(3000);
+const idNameMap = {};
 
 
 io.on('connection', (socket) => {
@@ -6,8 +7,18 @@ io.on('connection', (socket) => {
     // socket.emit('chat-message', 'Hello World');
     // Emitting message Hello World with event name chat-message
 
+    socket.on('new-user', (data) => {
+        idNameMap[data] = socket.id;
+
+        socket.broadcast.emit('new-user', data);
+
+    });
+
     socket.on('send-chat-message', (data) => {
-        socket.broadcast.emit('chat-message', data);
+        socket.broadcast.emit('chat-message', {
+            userName: data.userName,
+            message: data.message
+        });
     });
 });
 
