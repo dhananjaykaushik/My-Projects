@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:chat_app/theme/theme.dart' as MyTheme;
+import 'package:tap_it/theme/theme.dart' as MyTheme;
 
 class Game extends StatefulWidget {
   String field1;

@@ -1,5 +1,5 @@
-import 'package:chat_app/Pages/Game.dart';
-import 'package:chat_app/theme/theme.dart' as MyTheme;
+import 'package:tap_it/Pages/Game.dart';
+import 'package:tap_it/theme/theme.dart' as MyTheme;
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
