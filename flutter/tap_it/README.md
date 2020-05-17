@@ -1,4 +1,4 @@
-# chat_app
+# tap_it
 
 A new Flutter project.
 
