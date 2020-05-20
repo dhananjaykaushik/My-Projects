@@ -1,0 +1,11 @@
+.card {
+    margin: 20px 0;
+}
+
+.card h5 {
+    font-weight: 600;
+}
+
+.card a {
+    margin-right: 8px;
+}
