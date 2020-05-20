@@ -1,0 +1,21 @@
+{
+  "name": "url_shortener",
+  "version": "1.0.0",
+  "description": "Url shortener",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "#node",
+    "#mongoDB",
+    "#express",
+    "#angular"
+  ],
+  "author": "Dhananjay Kaushik",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.15"
+  }
+}
