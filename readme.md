@@ -8,12 +8,13 @@ Fork the repository and enhance it and introduce new features.
 
 **Projects mentioned below**
 
-| Projects                            |        Path        |                  Tags                  |
-| ----------------------------------- | :----------------: | :------------------------------------: |
-| **1. Tic Tac Toe ( Multiplayer )**  |  WebDev/TicTacToe  |             #html #js #css             |
-| **2. Tic Tac Toe ( Singleplayer )** | WebDev/TicTacToeAI |           #html #js #css #ai           |
-| **3. Type Racer**                   |  WebDev/TypeRacer  |             #html #js #css             |
-| **4. Pacman**                       |   WebDev/Pacman    |             #html #js #css             |
-| **5. Mardown Blogs**                | node/markdown_blog | #html #js #css #node #express #mongoDB |
+| Projects                            |             Path              |                  Tags                  |
+| ----------------------------------- | :---------------------------: | :------------------------------------: |
+| **1. Tic Tac Toe ( Multiplayer )**  |       WebDev/TicTacToe        |             #html #js #css             |
+| **2. Tic Tac Toe ( Singleplayer )** |      WebDev/TicTacToeAI       |           #html #js #css #ai           |
+| **3. Type Racer**                   |       WebDev/TypeRacer        |             #html #js #css             |
+| **4. Pacman**                       |         WebDev/Pacman         |             #html #js #css             |
+| **5. Mardown Blogs**                |      node/markdown_blog       | #html #js #css #node #express #mongoDB |
+| **6. Dynamic Form Generator**       | WebDev/dynamic_form_generator |       #html #js #css #bootstrap        |
 
 > Programming isn't about what you know; it's about what you can figure out. - _Chris Pine_
