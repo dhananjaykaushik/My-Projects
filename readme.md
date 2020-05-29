@@ -8,7 +8,7 @@ Fork the repository and enhance it and introduce new features.
 
 **Projects mentioned below**
 
-| Projects                            |             Path              |                  Tags                  |
+| Project                             |             Path              |                  Tags                  |
 | ----------------------------------- | :---------------------------: | :------------------------------------: |
 | **1. Tic Tac Toe ( Multiplayer )**  |       WebDev/TicTacToe        |             #html #js #css             |
 | **2. Tic Tac Toe ( Singleplayer )** |      WebDev/TicTacToeAI       |           #html #js #css #ai           |
