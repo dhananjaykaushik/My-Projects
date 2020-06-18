@@ -1,0 +1,20 @@
+{
+  "name": "stackoverflow-backend",
+  "version": "1.0.0",
+  "description": "Stackoverflow demo",
+  "main": "server.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "keywords": [
+    "#mern"
+  ],
+  "author": "Dhananjay Kaushik",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
