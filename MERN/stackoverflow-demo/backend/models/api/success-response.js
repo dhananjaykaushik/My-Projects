@@ -1,6 +1,6 @@
-import ApiResponse from "./api-response";
+const ApiResponse = require('../api/api-response');
 
-export default class ApiSuccessResponse extends ApiResponse {
+module.exports = class ApiSuccessResponse extends ApiResponse {
 
     /**
      * Creates an instance of ApiSuccessResponse.
@@ -10,6 +10,6 @@ export default class ApiSuccessResponse extends ApiResponse {
      */
     constructor(statusCode, data) {
         super(statusCode);
-        this.#data = data;
+        this.data = data;
     }
 }

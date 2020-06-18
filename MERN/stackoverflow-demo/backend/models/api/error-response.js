@@ -1,6 +1,6 @@
-import ApiResponse from "./api-response";
+const ApiResponse = require('../api/api-response');
 
-export default class ApiErrorResponse extends ApiResponse {
+module.exports = class ApiErrorResponse extends ApiResponse {
 
     /**
      *Creates an instance of ApiErrorResponse.
@@ -11,8 +11,8 @@ export default class ApiErrorResponse extends ApiResponse {
      */
     constructor(errorCode, errorReferenceId, errorMessage) {
         super(errorCode);
-        this.#errorReferenceId = errorReferenceId;
-        this.#message = errorMessage;
+        this.errorReferenceId = errorReferenceId;
+        this.message = errorMessage;
     }
 
 }
