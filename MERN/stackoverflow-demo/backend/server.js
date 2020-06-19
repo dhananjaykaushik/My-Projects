@@ -1,7 +1,6 @@
 // Imports
 const express = require('express');
 const app = express();
-const questions = require('./routes/questions/questions');
 const authorize = require('./routes/authorize/authorize');
 
 // Default values
@@ -15,13 +14,8 @@ app.use((request, response, next) => {
 });
 app.use(express.json({}));
 
-// Temporary Redirection
-app.get('/', (request, response) => {
-    response.redirect('/questions');
-});
 
 // Handling routes
-app.use('/questions', questions);
 app.use('/authorize', authorize);
 
 // Starting server on port
